@@ -8,6 +8,13 @@
       "when": 1719997972944,
       "tag": "0000_yielding_bloodaxe",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1760697839961,
+      "tag": "0001_round_magdalene",
+      "breakpoints": true
     }
   ]
 }
