@@ -16,6 +16,7 @@
     "db:check": "drizzle-kit check"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "^2.0.32",
     "@ai-sdk/openai": "^2.0.52",
     "@ai-sdk/react": "^2.0.76",
     "@langchain/textsplitters": "^0.1.0",
@@ -24,6 +25,7 @@
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@t3-oss/env-nextjs": "^0.10.1",
+    "@types/pdf-parse": "^1.1.5",
     "ai": "^5.0.76",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -33,6 +35,7 @@
     "nanoid": "^5.0.7",
     "next": "14.2.4",
     "next-themes": "^0.3.0",
+    "pdf-parse": "^2.4.3",
     "postgres": "^3.4.4",
     "react": "^18",
     "react-dom": "^18",
