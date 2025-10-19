@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Loader2 } from "lucide-react";
-import { processPdfFile } from "@/lib/actions/process-pdf";
+import { uploadDocument } from "@/lib/actions/process-file";
 
 export default function PDFUpload() {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,26 +26,26 @@ export default function PDFUpload() {
 
     try {
       const formData = new FormData();
-      formData.append("pdf", file);
+      formData.append("document", file);
 
-      const result = await processPdfFile(formData);
+      const result = await uploadDocument(formData);
 
       if (result.success) {
         setMessage({
           type: "success",
-          text: result.message || "PDF processed successfully",
+          text: result.message || "Document processed successfully",
         });
         e.target.value = "";
       } else {
         setMessage({
           type: "error",
-          text: result.message || "Failed to process PDF",
+          text: result.message || "Failed to process document",
         });
       }
     } catch (err) {
       setMessage({
         type: "error",
-        text: "An error occurred while processing the PDF",
+        text: "An error occurred while processing the document",
       });
     } finally {
       setIsLoading(false);
@@ -56,17 +56,17 @@ export default function PDFUpload() {
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-          PDF Upload
+          Document Upload
         </h1>
         <Card className="mb-6">
           <CardContent className="pt-6">
             <div className="space-y-4">
               <div>
-                <Label htmlFor="pdf-upload">Upload PDF File</Label>
+                <Label htmlFor="pdf-upload">Upload Document</Label>
                 <Input
                   id="pdf-upload"
                   type="file"
-                  accept=".pdf"
+                  accept=".pdf, .doc, .docx"
                   onChange={handleFileUpload}
                   disabled={isLoading}
                   className="mt-2"
@@ -77,7 +77,7 @@ export default function PDFUpload() {
                 <div className="flex items-center gap-2">
                   <Loader2 className="h-5 w-5 animate-spin" />
                   <span className="text-muted-foreground">
-                    Processing PDF...
+                    Processing document...
                   </span>
                 </div>
               )}

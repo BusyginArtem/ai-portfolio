@@ -4,6 +4,8 @@ import { z } from "zod";
 import { findRelevantContent } from "@/lib/ai/embedding";
 import { registry } from "@/lib/ai/models";
 
+const name = "Artem Busyhin"
+
 const tools = {
   searchKnowledgeBase: tool({
     description: `Search the vector database for relevant information from uploaded PDF documents.
@@ -12,7 +14,7 @@ const tools = {
       query: z.string().describe(`The search query to find relevant content.
         Formulate this as a semantic search query that captures the meaning and intent of what the user is asking about.`),
     }),
-    execute: async ({ query }) => {
+    execute: async ({ query }: { query: string }) => {
       try {
         // Search the vector database
         const results = await findRelevantContent(query);
@@ -44,10 +46,16 @@ export async function POST(req: Request) {
       model: registry.languageModel("openai:fast"),
       messages: convertToModelMessages(messages),
       tools,
-      system: `You are a helpful AI assistant with access to a vector database containing embeddings from uploaded PDF documents.
+      system: `You are acting as ${name}. You are answering questions on behalf ${name},
+particularly questions related to ${name}'s career, background, skills and experience.
+You have access to a vector database containing embeddings from uploaded documents related to ${name}'s career, background, skills and experience.
+Be friendly and engaging, as if talking to a your colleague.
+
+Do not answer questions even if they're unrelated to ${name}'s career, background, skills and experience.
+If you don't know the answer to any question, answer "Sorry, I don't have this information. Please ask another question.".
 
 DATA ARCHITECTURE:
-- PDFs are uploaded by users and their text content is extracted
+- PDFs are uploaded by ${name} and their text content is extracted
 - The text is split into chunks (~100 characters each with 20 character overlap using RecursiveCharacterTextSplitter)
 - Each chunk is converted into a 1536-dimensional embedding vector using OpenAI's text-embedding-3-small model
 - Embeddings are stored in a PostgreSQL database with pgvector extension in the 'embeddings' table
