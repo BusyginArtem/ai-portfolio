@@ -29,7 +29,7 @@ export const generateEmbedding = async (text: string): Promise<number[]> => {
   return embedding;
 };
 
-export const findRelevantContent = async (userQuery: string, limit: number = 5, threshold: number = 0.5) => {
+export const findRelevantContent = async (userQuery: string, limit: number = 10, threshold: number = 0.5) => {
   const userQueryEmbedded = await generateEmbedding(userQuery);
 
   const similarity = sql<number>`1 - (${cosineDistance(embeddings.embedding, userQueryEmbedded)})`;
