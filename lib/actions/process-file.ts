@@ -13,7 +13,7 @@ async function extractTextFromFile(file: File): Promise<string> {
   const fileName = file.name.toLowerCase();
 
   // Handle PDF files
-  if (fileType === "application/pdf" || fileName.endsWith(".pdf")) {
+  if (fileType === "application/pdf" && fileName.endsWith(".pdf")) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     const data = new PDFParse({ data: buffer });
@@ -23,21 +23,50 @@ async function extractTextFromFile(file: File): Promise<string> {
 
   // Handle DOCX files (Word documents)
   if (
-    fileType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+    fileType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" &&
     fileName.endsWith(".docx")
   ) {
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    const result = await mammoth.extractRawText({ buffer });
-    return result.value;
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      // Create a proper Node.js Buffer from the ArrayBuffer
+      const buffer = Buffer.from(new Uint8Array(arrayBuffer));
+
+      const result = await mammoth.extractRawText({
+        buffer: buffer,
+      });
+
+      if (!result.value || result.value.trim().length === 0) {
+        throw new Error("No text content found in DOCX file");
+      }
+
+      return result.value;
+    } catch (error) {
+      console.error("Mammoth extraction error:", error);
+      throw new Error(
+        `Failed to extract text from DOCX file: ${error instanceof Error ? error.message : "Unknown error"}`
+      );
+    }
   }
 
   // Handle DOC files (older Word format)
-  if (fileType === "application/msword" || fileName.endsWith(".doc")) {
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    const result = await mammoth.extractRawText({ buffer });
-    return result.value;
+  if (fileType === "application/msword" && fileName.endsWith(".doc")) {
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const buffer = Buffer.from(new Uint8Array(arrayBuffer));
+
+      const result = await mammoth.extractRawText({ buffer: buffer });
+
+      if (!result.value || result.value.trim().length === 0) {
+        throw new Error("No text content found in DOC file");
+      }
+
+      return result.value;
+    } catch (error) {
+      console.error("Mammoth extraction error:", error);
+      throw new Error(
+        `Failed to extract text from DOC file: ${error instanceof Error ? error.message : "Unknown error"}`
+      );
+    }
   }
 
   throw new Error(`Unsupported file type: ${fileType || "unknown"}. Supported formats: PDF, DOC, DOCX`);
@@ -69,8 +98,6 @@ export const uploadDocument = async (formData: FormData) => {
 
     const { content } = insertResourceSchema.parse(input);
 
-    console.log("<<<<<<<<<<<<<<<<<< content >>>>>>>>>>>>>>>>>>>>>>", content);
-
     const [resource] = await db.insert(resources).values({ content }).returning();
 
     const embeddings = await generateEmbeddings(content);
@@ -83,7 +110,7 @@ export const uploadDocument = async (formData: FormData) => {
 
     return {
       success: true,
-      message: "PDF processed successfully",
+      message: "Document processed successfully",
     };
   } catch (e) {
     console.log("Error processing PDF", e);
