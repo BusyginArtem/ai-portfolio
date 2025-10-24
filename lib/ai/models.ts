@@ -1,5 +1,6 @@
 import { anthropic } from "@ai-sdk/anthropic";
 import { openai } from "@ai-sdk/openai";
+import { deepseek } from '@ai-sdk/deepseek';
 import { createProviderRegistry, customProvider, defaultSettingsMiddleware, wrapLanguageModel } from "ai";
 
 const customOpenAI = customProvider({
@@ -30,8 +31,16 @@ const customAnthropic = customProvider({
   fallbackProvider: anthropic,
 });
 
+const customDeepseek = customProvider({
+  languageModels: {
+    fast: deepseek("deepseek-chat"),
+  },
+  fallbackProvider: deepseek,
+});
+
 export const registry = createProviderRegistry({
   openai: customOpenAI,
   anthropic: customAnthropic,
+  deepseek: customDeepseek,
 });
 
