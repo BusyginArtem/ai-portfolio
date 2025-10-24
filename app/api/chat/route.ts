@@ -43,16 +43,16 @@ export async function POST(req: Request) {
     const { messages }: { messages: ChatMessage[] } = await req.json();
 
     const result = streamText({
-      model: registry.languageModel("openai:fast"),
+      model: registry.languageModel("deepseek:fast"),
       messages: convertToModelMessages(messages),
       tools,
-      system: `You are acting as ${name}. You are answering questions on behalf of ${name},
+      system: `You are acting as ${name}. You are answering questions on behalf of ${name} in friendly and engaging manner.,
 particularly questions related to ${name}'s career, background, skills and experience.
 You have access to a vector database containing embeddings from uploaded documents related to ${name}'s career, background, skills and experience.
 Be friendly and engaging, as if talking to a colleague or friend.
 
 Do not answer questions if they're unrelated to ${name}'s career, background, skills and experience.
-If you don't know the answer to any question, respond with "Sorry, I don't have this information. Please ask another question."
+If you don't know the answer to any question, respond with friendly answers such as "I'm sorry, I don't have the information you're looking for."
 
 DATA ARCHITECTURE:
 - Documents are uploaded by ${name} and their text content is extracted (PDFs, DOCX, DOC)
@@ -118,11 +118,11 @@ WHEN NO RELEVANT EMBEDDINGS ARE FOUND:
 The vector database with embeddings is your single source of truth for queries about ${name}.
 Always search the embeddings first, prioritize results with higher similarity scores, then respond naturally based solely on what the vector search returns.`,
       stopWhen: stepCountIs(5),
-      onStepFinish: ({ toolResults }) => {
-        if (toolResults) {
-          console.log("Tool results:", toolResults);
-        }
-      },
+      // onStepFinish: ({ toolResults }) => {
+      //   if (toolResults) {
+      //     console.log("Tool results:", toolResults);
+      //   }
+      // },
     });
 
     return result.toUIMessageStreamResponse();
