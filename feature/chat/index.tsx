@@ -1,4 +1,3 @@
-// src/app/chat/page.tsx
 "use client";
 
 import { Fragment, useState } from "react";
