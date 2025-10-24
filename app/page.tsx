@@ -1,3 +1,9 @@
+import ChatBot from "@/feature/chat";
+import Hero from "@/feature/hero";
+
 export default function Chat() {
-  return <main>Hello, world!</main>;
+  return <main>
+    <Hero />
+    <ChatBot />
+  </main>;
 }
