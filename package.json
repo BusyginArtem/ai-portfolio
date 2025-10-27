@@ -20,6 +20,7 @@
     "@ai-sdk/deepseek": "^1.0.23",
     "@ai-sdk/openai": "^2.0.52",
     "@ai-sdk/react": "^2.0.76",
+    "@gsap/react": "^2.1.2",
     "@langchain/textsplitters": "^0.1.0",
     "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-collapsible": "^1.1.12",
