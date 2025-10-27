@@ -1,9 +1,9 @@
 import ChatBot from "@/feature/chat";
 import Hero from "@/feature/hero";
 
-export default function Chat() {
-  return <main>
+export default function Portfolio() {
+  return <>
     <Hero />
     <ChatBot />
-  </main>;
+  </>;
 }
