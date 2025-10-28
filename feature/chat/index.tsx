@@ -2,11 +2,7 @@
 
 import { Fragment, useState } from "react";
 import { useChat } from "@ai-sdk/react";
-import {
-  Conversation,
-  ConversationContent,
-  ConversationScrollButton,
-} from "@/components/ai-elements/conversation";
+import { Conversation, ConversationContent, ConversationScrollButton } from "@/components/ai-elements/conversation";
 import { Message, MessageContent } from "@/components/ai-elements/message";
 import {
   PromptInput,
@@ -35,9 +31,9 @@ export default function ChatBot() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 relative size-full h-[calc(100vh-4rem)]">
-      <div className="flex flex-col h-full">
-        <Conversation className="h-full">
+    <div className='max-w-4xl mx-auto p-6 size-full flex-1'>
+      <div className='flex flex-col h-full'>
+        <Conversation className='h-full'>
           <ConversationContent>
             {messages.map((message) => (
               <div key={message.id}>
@@ -64,17 +60,12 @@ export default function ChatBot() {
           <ConversationScrollButton />
         </Conversation>
 
-        <PromptInput onSubmit={handleSubmit} className="mt-4">
+        <PromptInput onSubmit={handleSubmit} className='mt-4'>
           <PromptInputBody>
-            <PromptInputTextarea
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-            />
+            <PromptInputTextarea value={input} onChange={(e) => setInput(e.target.value)} />
           </PromptInputBody>
           <PromptInputFooter>
-            <PromptInputTools>
-              {/* Model selector, web search, etc. */}
-            </PromptInputTools>
+            <PromptInputTools>{/* Model selector, web search, etc. */}</PromptInputTools>
             <PromptInputSubmit disabled={!input && !status} status={status} />
           </PromptInputFooter>
         </PromptInput>

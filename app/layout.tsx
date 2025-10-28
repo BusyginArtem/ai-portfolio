@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+// import localFont from 'next/font/local';
 
 import "./globals.css";
 import Header from "@/components/header";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+
+// const oswald = localFont({ src: '../public/fonts/Oswald/Oswald-VariableFont_wght.ttf' })
 
 export const metadata: Metadata = {
   title: "Artem Busyhin | Personal Portfolio",
@@ -17,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body>
+      <body >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -26,11 +29,11 @@ export default function RootLayout({
         >
           <Header />
 
-          <main>
-            {children}
-          </main>
+          {children}
 
-          <footer className="transition-colors md:fixed px-4 md:px-10 py-5 z-10 bottom-0 w-full border-t flex flex-col md:flex-row text-xs md:text-sm uppercase tracking-wider md:items-center justify-between">TEST</footer>
+          <footer className="bg-background transition-colors fixed px-4 md:px-10 py-5 z-10 bottom-0 w-full border-t flex flex-col md:flex-row uppercase tracking-wider md:items-center justify-between">
+            {/* <h1 className="text-xl md:text-2xl lg:text-6xl">Artem Busyhin</h1> */}
+          </footer>
         </ThemeProvider>
       </body>
     </html>

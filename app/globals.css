@@ -69,7 +69,7 @@
 @layer base {
   @font-face {
     font-family: "Oswald";
-    src: url("/fonts/Oswald-VariableFont_wght.ttf") format("truetype-variations");
+    src: url("/fonts/Oswald/Oswald-VariableFont_wght.ttf") format("truetype-variations");
     font-weight: 100 900;
     font-stretch: 75% 125%;
     font-display: swap;
@@ -101,26 +101,12 @@
 
   :root {
     --font-oswald: "Oswald", sans-serif;
-    /* --font-open-sans: "Open Sans", sans-serif; */
-    /* --font-bitcount: "Bitcount", sans-serif; */
-
     --font-metrics-oswald: 1.1;
-    /* --font-metrics-open-sans: 1.4; */
-    /* --font-metrics-bitcount: 1.2; */
+    /* --font-open-sans: "Open Sans", sans-serif;
+    --font-metrics-open-sans: 1.1;
+    --font-bitcount: "Bitcount", sans-serif;
+    --font-metrics-bitcount: 1.1; */
   }
-
-  /* body {
-    font-synthesis: none;
-    text-rendering: optimizeSpeed;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  @supports (font-variation-settings: normal) {
-    body {
-      font-optical-sizing: auto;
-    }
-  } */
 
   * {
     @apply border-border;
@@ -128,4 +114,31 @@
   body {
     @apply bg-background text-foreground font-oswald;
   }
+}
+
+@layer components {
+  /* .hero-text .word {
+    font-size: 1.875rem; 
+    font-weight: 700;
+    color: #1f2937;
+    line-height: 1.2;
+  }
+
+  @media (min-width: 640px) {
+    .hero-text .word {
+      font-size: 2.25rem; 
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hero-text .word {
+      font-size: 3rem; 
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-text .word {
+      font-size: 3.75rem; 
+    }
+  } */
 }
