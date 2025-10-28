@@ -1,45 +1,66 @@
 "use client";
 
-import {useRef } from "react";
+import { useRef, useState } from "react";
 
 import { gsap } from "gsap";
-import { useGSAP } from '@gsap/react';
+import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
 
 export default function Hero() {
+  const [fontsReady, setFontsReady] = useState(false);
+
   const container = useRef<HTMLHeadingElement | null>(null);
 
   useGSAP(() => {
-    const splitLetters = SplitText.create(container.current, { type: "words" });
+    document.fonts.ready.then(() => {
+      setFontsReady(true);
+    });
+  });
 
-    gsap.set(splitLetters.chars, { opacity: "0.2" });
+  useGSAP(
+    () => {
+      if (!fontsReady) return;
 
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: container.current,
-          pin: true,
-          start: "center center",
-          end: "+=150",
-          scrub: 1
-        }
-      })
-      .to(splitLetters.chars, {
-        opacity: "1",
-        duration: 1,
-        ease: "none",
-        stagger: 1
+      const split = SplitText.create(container.current, {
+        type: "words",
+        wordsClass: "word",
       });
-  }, { scope: container })
 
+      gsap.set(split.words, { opacity: "0.2" });
 
-  return <div ref={container} className="min-h-screen px-4 md:px-10 flex items-center content-center">
-    <h1 className="text-5xl md:text-[6vw] leading-none lg:max-w-[80%] relative z-[2]">
-      I&apos;m Artem Busyhin, a front-end developer passionate about
-      building sites & apps with great user experiences. My focus is React and Next.js
-    </h1>
-  </div>;
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: container.current,
+            pin: true,
+            start: "center center",
+            end: "+=350",
+            scrub: 1,
+          },
+        })
+        .to(split.words, {
+          opacity: "1",
+          duration: 1,
+          ease: "none",
+          stagger: 1,
+        });
+    },
+    { scope: container, dependencies: [fontsReady] }
+  );
+
+  if (!fontsReady) {
+    return <div className='md:max-w-[80%] lg:max-w-[50%] flex-1 flex flex-col justify-center items-center' />;
+  }
+
+  return (
+    <div className='md:max-w-[80%] lg:max-w-[50%] flex-1 flex flex-col justify-center items-center'>
+      <h1 ref={container} className='text-2xl md:text-4xl lg:text-6xl leading-none'>
+        I&apos;m Artem Busyhin, a front-end developer passionate about building sites & apps with great user
+        experiences. My focus is React and Next.js
+      </h1>
+    </div>
+  );
 }
