@@ -50,6 +50,10 @@ function ThemeToggle() {
 
   useEffect(() => {
     setMounted(true);
+
+    return () => {
+      setMounted(false);
+    };
   }, []);
 
   if (!mounted) {
