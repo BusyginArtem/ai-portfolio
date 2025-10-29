@@ -26,7 +26,6 @@ export default function Hero() {
 
       const split = SplitText.create(container.current, {
         type: "words",
-        wordsClass: "word",
       });
 
       gsap.set(split.words, { opacity: "0.2" });
@@ -37,13 +36,15 @@ export default function Hero() {
             trigger: container.current,
             pin: true,
             start: "center center",
-            end: "+=350",
+            end: "+=600",
             scrub: 1,
+            toggleActions: "play none none none",
+            // markers: true,
           },
         })
         .to(split.words, {
           opacity: "1",
-          duration: 1,
+          duration: 0.75,
           ease: "none",
           stagger: 1,
         });
@@ -52,12 +53,12 @@ export default function Hero() {
   );
 
   if (!fontsReady) {
-    return <div className='md:max-w-[80%] lg:max-w-[50%] flex-1 flex flex-col justify-center items-center' />;
+    return <div className='min-h-screen flex-1' />;
   }
 
   return (
-    <div className='md:max-w-[80%] lg:max-w-[50%] flex-1 flex flex-col justify-center items-center'>
-      <h1 ref={container} className='text-2xl md:text-4xl lg:text-6xl leading-none'>
+    <div className='min-h-screen md:max-w-[80%] flex-1 flex flex-col justify-center items-center mt-[-64px]'>
+      <h1 ref={container} className='text-2xl sm:text-6xl lg:text-8xl leading-none text-balance'>
         I&apos;m Artem Busyhin, a front-end developer passionate about building sites & apps with great user
         experiences. My focus is React and Next.js
       </h1>

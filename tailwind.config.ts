@@ -3,7 +3,7 @@ const { fontFamily } = require("tailwindcss/defaultTheme");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: "class",
-  content: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
+  content: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}", "feature/**/*.{ts,tsx}", ],
   theme: {
     container: {
       center: true,
@@ -57,7 +57,6 @@ module.exports = {
         sans: ["var(--font-open-sans)", ...fontFamily.sans],
         oswald: ["var(--font-oswald)", ...fontFamily.sans],
         // "open-sans": ["var(--font-open-sans)", ...fontFamily.sans],
-        // bitcount: ["var(--font-bitcount)", ...fontFamily.sans],
       },
       keyframes: {
         "accordion-down": {
