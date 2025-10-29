@@ -31,7 +31,7 @@ export default function ChatBot() {
   };
 
   return (
-    <div id='chat' className='flex flex-col justify-end min-h-screen max-w-4xl mx-auto p-6 size-full flex-1'>
+    <div id='chat' className='flex flex-col justify-end min-h-screen max-w-6xl mx-auto p-6 size-full flex-1'>
       <div className='flex flex-col h-full'>
         <Conversation className='h-full'>
           <ConversationContent>
