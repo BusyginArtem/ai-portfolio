@@ -30,7 +30,7 @@ export default function RootLayout({
             <div>Currently in Europe (GMT +01:00)</div>
 
             <a href='mailto:artembusygin87@gmail.com?subject=Hi Artem'>
-              <p className='underline'> Write Me</p>
+              <p className='underline underline-offset-4'> Write Me</p>
             </a>
           </footer>
         </ThemeProvider>
