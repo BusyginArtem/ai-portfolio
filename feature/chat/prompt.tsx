@@ -16,7 +16,7 @@ import { useChatContext } from "@/components/providers/chat-context";
 export default function Prompt() {
   const [input, setInput] = useState("");
 
-  const { sendMessage, status, messages } = useChatContext();
+  const { sendMessage, status } = useChatContext();
   const handleSubmit = (message: PromptInputMessage) => {
     if (!message.text) {
       return;
@@ -29,13 +29,13 @@ export default function Prompt() {
 
   return (
     <div className='mt-4 md:mt-6 animate-in slide-in-from-bottom-8 fade-in duration-700 delay-150'>
-      <PromptInput onSubmit={handleSubmit} className=''>
-        <PromptInputBody>
+      <PromptInput onSubmit={handleSubmit} className=' [&_[data-slot=input-group]]:!ring-black/5'>
+        <PromptInputBody className=''>
           <PromptInputTextarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder='What would you like to know about me?'
-            className='text-xl resize-none placeholder:text-muted-foreground/50 placeholder:text-xl'
+            className='text-xl resize-none placeholder:text-muted-foreground/50 placeholder:text-x'
           />
         </PromptInputBody>
         <PromptInputFooter className='border-t'>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ThemeToggle from "./theme-toggle";
+// import SmoothScroll from "../ui/smooth-scroll";
 
 export default function Header() {
   return (
@@ -9,6 +10,12 @@ export default function Header() {
           Projects
         </Link>
       </div>
+      {/* <div className='text-left py-6'>
+        <SmoothScroll trigger='#projects' className='uppercase underline hover:no-underline text-base py-0 h-auto'>
+          Projects
+        </SmoothScroll>
+      </div> */}
+
       <div className='text-center'>
         <ThemeToggle />
       </div>
@@ -17,6 +24,10 @@ export default function Header() {
           Chat
         </Link>
       </div>
+
+      {/* <div className='text-right py-6'>
+        <SmoothScroll trigger='#chat'>Chat</SmoothScroll>
+      </div> */}
     </header>
   );
 }
