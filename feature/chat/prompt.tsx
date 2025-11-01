@@ -35,7 +35,7 @@ export default function Prompt() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder='What would you like to know about me?'
-            className='text-xl resize-none placeholder:text-muted-foreground/50 placeholder:text-x'
+            className=' text-base md:text-lg resize-none placeholder:text-muted-foreground/50 placeholder:text-xl'
           />
         </PromptInputBody>
         <PromptInputFooter className='border-t'>
