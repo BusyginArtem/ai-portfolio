@@ -28,21 +28,22 @@ export default function ChatHeader() {
         type: "lines",
       });
 
-      gsap.set(split.lines, { y: 100, opacity: "0.2" });
-
       gsap
         .timeline({
           scrollTrigger: {
             trigger: container.current,
-            start: "100px bottom",
-            scrub: 1,
-            markers: true,
+            start: "top bottom-=100px",
+            once: true,
           },
         })
+        .from(split.lines, {
+          duration: 0.5,
+          y: 150,
+          stagger: 0.05,
+        })
         .to(split.lines, {
-          duration: 1.5,
-          y: -100,
-          opacity: "1",
+          duration: 0.5,
+          y: 0,
           stagger: 0,
         });
     },

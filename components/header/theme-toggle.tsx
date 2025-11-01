@@ -9,8 +9,8 @@ import { Button } from "@/components/ui/button";
 
 const buttonAnimations = {
   initial: { rotate: 0 },
-  hover: { rotate: 25 },
-  tap: { rotate: 25 },
+  hover: { rotate: 15 },
+  tap: { rotate: 15 },
 };
 
 const iconAnimations = {
