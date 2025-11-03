@@ -16,15 +16,27 @@ const tools = {
     }),
     execute: async ({ query }: { query: string }) => {
       try {
+        console.log("🔍 Search Query:", query);
         // Search the vector database
         const results = await findRelevantContent(query);
+        
+        console.log("📊 Results count:", results.length);
+        
+        if (results.length > 0) {
+          console.log("📈 Top result similarity:", results[0].similarity);
+          console.log("📝 Top result preview:", results[0].content.substring(0, 100));
+        }
 
         if (results.length === 0) {
           return "No relevant information found in the knowledge base.";
         }
 
         // Format results for the AI
-        const formattedResults = results.map((r, i) => `[${i + 1}] ${r.content}`).join("\n\n");
+        const formattedResults = results
+          .map((r, i) => `[${i + 1}] (Similarity: ${r.similarity.toFixed(3)}) ${r.content}`)
+          .join("\n\n");
+          
+        console.log("Formatted results:", formattedResults);
 
         return formattedResults;
       } catch (error) {
@@ -65,18 +77,21 @@ KNOWLEDGE BASE ARCHITECTURE:
 - Cosine similarity search returns up to 5 most relevant chunks (threshold: 0.5+)
 
 VECTOR SEARCH MECHANISM:
-1. **ALWAYS search first** when asked about ${name}'s professional information
-2. Formulate semantic queries that capture intent and meaning, not just keywords
-3. For multi-part questions, search once with a comprehensive query combining key concepts
-4. For follow-up questions, search again if the topic shifts significantly
+1. **ALWAYS use searchKnowledgeBase** when users ask about ${name}'s professional information
+2. Search with semantic queries like:
+   - For "latest company" → "most recent employment current job position company"
+   - For "skills" → "technical skills programming languages frameworks"
+   - For "experience" → "work experience professional background projects"
 
 UNDERSTANDING SEARCH RESULTS:
-- Each result includes a similarity score in format: [N] (Similarity: X.XXX) content
-- Similarity scores range from 0.5 to 1.0:
-  * 0.91 - 1.0: Highly relevant, almost exact match
-  * 0.81 - 0.9: Very relevant, strong semantic similarity
-  * 0.56 - 0.8: Moderately relevant, related content
-  * 0.5 - 0.55: Somewhat relevant, may contain useful information
+UNDERSTANDING SEARCH RESULTS:
+- Results format: [N] (Similarity: X.XXX) content
+- Similarity interpretation:
+  * 0.70+: Highly relevant - use confidently
+  * 0.60-0.69: Very relevant - use directly
+  * 0.50-0.59: Moderately relevant - use cautiously
+  * 0.30-0.49: Low relevance - mention uncertainty
+- **NEVER mention similarity scores, embeddings, or technical details to users**
 - Results are already sorted by similarity (highest first)
 - ALWAYS prioritize information from chunks with higher similarity scores
 - Lower-ranked results (positions 4-5) should be used cautiously or as supporting context only
@@ -87,39 +102,26 @@ HOW TO USE THE SEARCH TOOL:
 3. Formulate semantic queries that capture the meaning and intent, not just keywords
 4. The tool returns numbered text chunks with similarity scores - these are the actual content segments from uploaded documents
 
-ANSWERING BASED ON EMBEDDINGS:
-- **PRIORITIZE higher similarity scores** - chunks with similarity > 0.85 are most reliable
-- If the top result (position [1]) has high similarity (> 0.85), you can answer confidently based on it
-- If top results have moderate similarity (0.7-0.85), synthesize information from the top 2-3 results
-- If all results have low similarity (0.5-0.7), acknowledge uncertainty and provide a cautious answer
-- Synthesize information across multiple high-scoring chunks when they relate to the same topic
-- Be concise and focused - extract only what's needed to answer the user's specific question
-- Don't repeat or dump all search results - intelligently summarize and answer
-- If results have low similarity or seem irrelevant to the question, clearly state the information may be incomplete
+ANSWERING GUIDELINES:
+- Extract specific information from high-scoring results
+- Synthesize information from multiple relevant chunks
+- Answer naturally as ${name} would speak
+- If results have low similarity (<0.5), acknowledge incomplete information
+- Don't dump all search results - be concise and focused
 - **NEVER** mention similarity scores, embeddings, chunks, or technical details in your responses
 
-CONFIDENCE LEVELS BASED ON SIMILARITY:
-- **0.85 - 1.0**: Highly relevant - answer confidently
-- **0.70 - 0.84**: Very relevant - answer directly, may synthesize multiple chunks
-- **0.55 - 0.69**: Moderately relevant - answer cautiously, acknowledge if information seems partial
-- **0.50 - 0.54**: Marginally relevant - use only as supporting context
+WHEN NO RELEVANT EMBEDDINGS ARE FOUND:
+- Acknowledge that you don't have information about that specific topic
+- Respond with: "Sorry, I don't have this information. Please ask another question."
 
 CRITICAL BEHAVIOR RULES:
 - ALWAYS use searchKnowledgeBase when users ask questions about ${name}'s information
 - PRIORITIZE chunks with higher similarity scores when forming your answer
 - DON'T make up or hallucinate information not present in the vector database
 - DON'T mention in your answer that you're using embeddings, similarity scores, databases, or any technical implementation details
-- DON'T use chunk numbers like "[1]" or "[2]" in your responses
 - Speak naturally as ${name} would speak, without revealing the technical infrastructure
 - The vector database is your **ONLY** source of truth for ${name}'s information
-
-WHEN NO RELEVANT EMBEDDINGS ARE FOUND:
-- Acknowledge that you don't have information about that specific topic
-- Don't make up or hallucinate information not present in the vector database
-- Respond with: "Sorry, I don't have this information. Please ask another question."
-
-**IMPORTANT**: **The vector database with embeddings is your single source of truth for queries about ${name}.
-Always search the embeddings first, prioritize results with higher similarity scores, then respond naturally based solely on what the vector search returns.**`,
+`,
       stopWhen: stepCountIs(5),
       onStepFinish: ({ toolResults }) => {
         if (toolResults) {
