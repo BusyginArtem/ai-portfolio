@@ -35,6 +35,7 @@ export default function Hero() {
           scrollTrigger: {
             trigger: container.current,
             pin: true,
+            pinSpacing: "margin",
             start: "center center",
             end: "+=600",
             scrub: 1,
@@ -57,8 +58,8 @@ export default function Hero() {
   }
 
   return (
-    <div className='min-h-screen md:max-w-[80%] flex-1 flex flex-col justify-center items-center mt-[-64px]'>
-      <h1 ref={container} className='text-2xl sm:text-6xl lg:text-8xl leading-none text-balance'>
+    <div ref={container} className='min-h-screen md:max-w-[80%] flex flex-col justify-center items-center'>
+      <h1  className='text-2xl sm:text-6xl lg:text-8xl leading-none text-balance'>
         I&apos;m Artem Busyhin, a front-end developer passionate about building sites & apps with great user
         experiences. My focus is React and Next.js
       </h1>

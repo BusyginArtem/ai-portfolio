@@ -6,10 +6,10 @@ import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 //   separators: [" "],
 // });
 
-export async function chunkContent(content: string, chunkSize = 300) {
+export async function chunkContent(content: string, chunkSize = 500) {
   const textSplitter = new RecursiveCharacterTextSplitter({
     chunkSize,
-    chunkOverlap: 20,
+    chunkOverlap: 100,
     separators: [" "],
   });
 
