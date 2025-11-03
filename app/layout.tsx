@@ -2,16 +2,19 @@ import type { Metadata } from "next";
 // import localFont from 'next/font/local';
 
 import "./globals.css";
-import Header from "@/components/header";
+
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ChatProvider } from "@/components/providers/chat-context";
+
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 // const oswald = localFont({ src: '../public/fonts/Oswald/Oswald-VariableFont_wght.ttf' })
 
 export const metadata: Metadata = {
   title: "Artem Busyhin | Personal Portfolio",
-  description:
-    "Artem Busyhin is a front-end Developer with 6 years of experience.",
-}
+  description: "Artem Busyhin is a front-end Developer with 6 years of experience.",
+};
 
 export default function RootLayout({
   children,
@@ -19,21 +22,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+    <html lang='en' className='scroll-smooth' suppressHydrationWarning>
+      <body>
+        <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
           <Header />
 
-          {children}
+          <ChatProvider>{children}</ChatProvider>
 
-          <footer className="bg-background transition-colors fixed px-4 md:px-10 py-5 z-10 bottom-0 w-full border-t flex flex-col md:flex-row uppercase tracking-wider md:items-center justify-between">
-            {/* <h1 className="text-xl md:text-2xl lg:text-6xl">Artem Busyhin</h1> */}
-          </footer>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
