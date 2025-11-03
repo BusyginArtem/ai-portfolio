@@ -31,10 +31,10 @@ export default function ChatBot() {
   };
 
   return (
-    <div id='chat' className='flex flex-col justify-end min-h-screen max-w-4xl mx-auto p-6 size-full flex-1'>
-      <div className='flex flex-col h-full'>
-        <Conversation className='h-full'>
-          <ConversationContent>
+    <div id='chat' className='flex flex-col min-h-screen max-w-4xl mx-auto w-full h-full px-4 py-6 sm:px-6'>
+      <div className='flex flex-col h-full flex-1'>
+        <Conversation className='flex-1 overflow-hidden'>
+          <ConversationContent className='space-y-2'>
             {messages.map((message) => (
               <div key={message.id}>
                 {message.parts.map((part, i) => {
@@ -60,7 +60,7 @@ export default function ChatBot() {
           <ConversationScrollButton />
         </Conversation>
 
-        <PromptInput onSubmit={handleSubmit} className='mt-4'>
+        <PromptInput onSubmit={handleSubmit} className='mt-auto pt-4 border-t'>
           <PromptInputBody>
             <PromptInputTextarea value={input} onChange={(e) => setInput(e.target.value)} />
           </PromptInputBody>
