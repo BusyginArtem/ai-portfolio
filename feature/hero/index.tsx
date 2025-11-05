@@ -54,14 +54,17 @@ export default function Hero() {
   );
 
   if (!fontsReady) {
-    return <div className='min-h-screen flex-1' />;
+    return <div className="min-h-screen flex-1 px-[16px] md:px-[32px] " />;
   }
 
   return (
-    <div ref={container} className='min-h-screen md:max-w-[80%] flex flex-col justify-center items-center'>
-      <h1  className='text-2xl sm:text-6xl lg:text-8xl leading-none text-balance'>
-        I&apos;m Artem Busyhin, a front-end developer passionate about building sites & apps with great user
-        experiences. My focus is React and Next.js
+    <div
+      ref={container}
+      className="min-h-screen md:max-w-[80%] flex flex-col justify-center items-center px-[16px] md:px-[32px]"
+    >
+      <h1 className="text-2xl sm:text-6xl lg:text-8xl leading-none text-balance">
+        I&apos;m Artem Busyhin, a front-end developer passionate about building
+        sites & apps with great user experiences. My focus is React and Next.js
       </h1>
     </div>
   );
