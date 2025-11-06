@@ -3,10 +3,34 @@
 import { PDFParse } from "pdf-parse";
 import mammoth from "mammoth";
 
-import { NewResourceParams, insertResourceSchema, resources } from "@/lib/db/schema/resources";
+import {
+  NewResourceParams,
+  insertResourceSchema,
+  resources,
+} from "@/lib/db/schema/resources";
 import { db } from "@/lib/db";
 import { generateEmbeddings } from "@/lib/ai/embedding";
 import { embeddings as embeddingsTable } from "@/lib/db/schema/embeddings";
+
+/**
+ * Pre-process resume text for better chunking and vector search
+ */
+function preprocessText(text: string): string {
+  return (
+    text
+      // Normalize line endings
+      .replace(/\r\n/g, "\n")
+      // Remove excessive whitespace
+      .replace(/\n{3,}/g, "\n\n")
+      // Clean up common PDF artifacts
+      .replace(/\s+/g, " ")
+      // Preserve section structure
+      .replace(/^([A-Z][A-Za-z\s&/]+):?$/gm, "\n\n$1\n")
+      // Normalize bullet points
+      .replace(/^[•\-\*]\s+/gm, "- ")
+      .trim()
+  );
+}
 
 async function extractTextFromFile(file: File): Promise<string> {
   const fileType = file.type;
@@ -15,15 +39,16 @@ async function extractTextFromFile(file: File): Promise<string> {
   // Handle PDF files
   if (fileType === "application/pdf" && fileName.endsWith(".pdf")) {
     const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    const data = new PDFParse({ data: buffer });
+    const data = new PDFParse({ data: new Uint8Array(bytes) });
     const { text } = await data.getText();
-    return text;
+    console.log("📄 Raw PDF text length:", text.length);
+    return preprocessText(text);
   }
 
   // Handle DOCX files (Word documents)
   if (
-    fileType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" &&
+    fileType ===
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document" &&
     fileName.endsWith(".docx")
   ) {
     try {
@@ -39,11 +64,14 @@ async function extractTextFromFile(file: File): Promise<string> {
         throw new Error("No text content found in DOCX file");
       }
 
-      return result.value;
+      console.log("📄 Raw DOCX text length:", result.value.length);
+      return preprocessText(result.value);
     } catch (error) {
       console.error("Mammoth extraction error:", error);
       throw new Error(
-        `Failed to extract text from DOCX file: ${error instanceof Error ? error.message : "Unknown error"}`
+        `Failed to extract text from DOCX file: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`
       );
     }
   }
@@ -60,16 +88,23 @@ async function extractTextFromFile(file: File): Promise<string> {
         throw new Error("No text content found in DOC file");
       }
 
-      return result.value;
+      console.log("📄 Raw DOC text length:", result.value.length);
+      return preprocessText(result.value);
     } catch (error) {
       console.error("Mammoth extraction error:", error);
       throw new Error(
-        `Failed to extract text from DOC file: ${error instanceof Error ? error.message : "Unknown error"}`
+        `Failed to extract text from DOC file: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`
       );
     }
   }
 
-  throw new Error(`Unsupported file type: ${fileType || "unknown"}. Supported formats: PDF, DOC, DOCX`);
+  throw new Error(
+    `Unsupported file type: ${
+      fileType || "unknown"
+    }. Supported formats: PDF, DOC, DOCX`
+  );
 }
 
 export const uploadDocument = async (formData: FormData) => {
@@ -98,7 +133,10 @@ export const uploadDocument = async (formData: FormData) => {
 
     const { content } = insertResourceSchema.parse(input);
 
-    const [resource] = await db.insert(resources).values({ content }).returning();
+    const [resource] = await db
+      .insert(resources)
+      .values({ content })
+      .returning();
 
     const embeddings = await generateEmbeddings(content);
     await db.insert(embeddingsTable).values(
