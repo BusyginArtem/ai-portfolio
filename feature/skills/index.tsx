@@ -18,6 +18,24 @@ const imagePaths = [
   "/skills/php.png",
   "/skills/seo.jpg",
   "/skills/shopify.jpg",
+  "/skills/react.png",
+  "/skills/next.png",
+  "/skills/js.png",
+  "/skills/html.png",
+  "/skills/css.png",
+  "/skills/git.png",
+  "/skills/php.png",
+  "/skills/seo.jpg",
+  "/skills/shopify.jpg",
+  "/skills/react.png",
+  "/skills/next.png",
+  "/skills/js.png",
+  "/skills/html.png",
+  "/skills/css.png",
+  "/skills/git.png",
+  "/skills/php.png",
+  "/skills/seo.jpg",
+  "/skills/shopify.jpg",
   "/skills/wow.jpeg",
   "/skills/dev-design.jpeg",
   "/skills/dev-framework.jpeg",
@@ -27,7 +45,6 @@ const imagePaths = [
   "/skills/management.jpg",
   "/skills/roadmap.jpg",
   "/skills/customer-management.jpg",
-  "/skills/error.jpg",
 ];
 
 const ImageDropPhysics = () => {
@@ -35,6 +52,12 @@ const ImageDropPhysics = () => {
   const engineRef = useRef<Matter.Engine | null>(null);
   const renderRef = useRef<Matter.Render | null>(null);
   const imagesRef = useRef<DroppedImage[]>([]);
+
+  // useEffect(() => {
+  // console.log("renderRef.current", renderRef.current);
+  // console.log("engineRef.current", engineRef.current);
+  // console.log("sceneRef", sceneRef.current);
+  // }, [theme]);
 
   const initializePhysics = useCallback(() => {
     if (!sceneRef.current) return;
@@ -57,7 +80,7 @@ const ImageDropPhysics = () => {
         width: document.documentElement.clientWidth,
         height: eightyPercentHeight,
         wireframes: false, // Important: we want to see images, not wireframes
-        background: "#000",
+        background: "transparent",
         pixelRatio: window.devicePixelRatio || 1,
         // showBounds: true,
         // showPositions: true,
@@ -75,8 +98,11 @@ const ImageDropPhysics = () => {
       15,
       {
         isStatic: true,
-        restitution: 0.8, // Bouncy ground
-        render: { fillStyle: "transparent", opacity: 0 },
+        restitution: 0.9, // Bouncy ground
+        render: {
+          fillStyle: "transparent",
+          opacity: 0,
+        },
       }
     );
 
@@ -132,7 +158,6 @@ const ImageDropPhysics = () => {
     // Get random image path
     const imgIndex = Math.round(Math.random() * imagePaths.length);
     const imagePath = imagePaths[imgIndex];
-    console.log("imgIndex", imgIndex);
 
     try {
       // Load image to get dimensions
@@ -144,20 +169,19 @@ const ImageDropPhysics = () => {
         img.style.borderRadius = "9999px";
       });
 
-      // Image dimensions (scaled for the scene)
-      const width = 160;
-      const height = (img.height / img.width) * width; // Maintain aspect ratio
-
       // Random starting position at top
       const startX = Math.random() * window.innerWidth;
       const startY = -50; // Start above the canvas
       let body;
 
-      if (imgIndex > 8) {
+      if (imgIndex > 26) {
+        // Image dimensions (scaled for the scene)
+        const width = 240;
+        const height = (img.height / img.width) * width; // Maintain aspect ratio
         // Create physics body with higher restitution for bouncy behavior
         body = Bodies.rectangle(startX, startY, width, height, {
           // restitution: 0.7, // Bounciness
-          restitution: 0.3,
+          restitution: 0.55,
           friction: 0.01, // Low friction for sliding
           frictionAir: 0.001, // Low air resistance
           render: {
@@ -169,10 +193,13 @@ const ImageDropPhysics = () => {
           },
         });
       } else {
+        // Image dimensions (scaled for the scene)
+        const width = 160;
+        const height = (img.height / img.width) * width; // Maintain aspect ratio
         // Create physics body with higher restitution for bouncy behavior
         body = Bodies.circle(startX, startY, width / 2, {
           // restitution: 0.7, // Bounciness
-          restitution: 0.3,
+          restitution: 0.55,
           friction: 0.01, // Low friction for sliding
           frictionAir: 0.001, // Low air resistance
           render: {
@@ -204,7 +231,7 @@ const ImageDropPhysics = () => {
     } catch (error) {
       console.error("Failed to load image:", error);
       const body = Bodies.rectangle(400, -50, 160, 160, {
-        restitution: 0.45,
+        restitution: 0.55,
         friction: 0.01,
         render: {
           fillStyle: `hsl(${imgIndex * 60}, 70%, 50%)`,
@@ -225,15 +252,15 @@ const ImageDropPhysics = () => {
   }, [initializePhysics]);
 
   return (
-    <div className="relative transition-colors h-[80vh] w-full text-center border-t">
+    <div className="relative transition-colors h-[80vh] w-full text-center border-t skills_border-bottom-offset min-h-fit">
       <button
         onClick={dropImage}
-        className="text-center absolute z-[8] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] dark:hover:bg-white dark:hover:text-black dark:active:bg-black dark:active:text-white coloured:hover:bg-pink coloured:active:bg-blue dark:bg-neutral-800 dark:text-white text-white bg-black hover:bg-yellowDark active:bg-black md:text-xl uppercase w-[160px] h-[160px] md:w-[180px] md:h-[180px] md:normal-case md:px-8 md:py-3 rounded-full "
+        className="text-center text-[rgb(247,245,245)] bg-[rgb(10,10,10)] dark:bg-[rgb(56,55,55)] hover:bg-[rgb(117,116,116)] hover:dark:bg-[rgb(247,245,245)] hover:dark:text-[rgb(10,10,10)] absolute z-[8] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] md:text-xl uppercase w-[160px] h-[160px] md:w-[180px] md:h-[180px] md:normal-case md:px-8 md:py-3 rounded-full "
       >
         Skills and technologies. Click me!
       </button>
 
-      <div ref={sceneRef} className="" />
+      <div ref={sceneRef} />
     </div>
   );
 };
