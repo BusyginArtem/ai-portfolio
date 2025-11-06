@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import Matter from "matter-js";
 
 interface DroppedImage {
@@ -14,19 +14,19 @@ const imagePaths = [
   "/skills/js.png",
   "/skills/html.png",
   "/skills/css.png",
-  "/skills/customer-management.jpg",
-  "/skills/management.jpg",
-  "/skills/dev-design.jpeg",
-  "/skills/dev-framework.jpeg",
   "/skills/git.png",
   "/skills/php.png",
-  "/skills/problem-solving.jpg",
   "/skills/seo.jpg",
   "/skills/shopify.jpg",
   "/skills/wow.jpeg",
+  "/skills/dev-design.jpeg",
+  "/skills/dev-framework.jpeg",
   "/skills/office-wow.jpg",
+  "/skills/problem-solving.jpg",
   "/skills/omg-cat.jpeg",
+  "/skills/management.jpg",
   "/skills/roadmap.jpg",
+  "/skills/customer-management.jpg",
   "/skills/error.jpg",
 ];
 
@@ -35,7 +35,6 @@ const ImageDropPhysics = () => {
   const engineRef = useRef<Matter.Engine | null>(null);
   const renderRef = useRef<Matter.Render | null>(null);
   const imagesRef = useRef<DroppedImage[]>([]);
-  const [dropCount, setDropCount] = useState(0);
 
   const initializePhysics = useCallback(() => {
     if (!sceneRef.current) return;
@@ -55,16 +54,15 @@ const ImageDropPhysics = () => {
       element: sceneRef.current,
       engine: engine,
       options: {
-        // width: window.innerWidth,
         width: document.documentElement.clientWidth,
         height: eightyPercentHeight,
         wireframes: false, // Important: we want to see images, not wireframes
         background: "#000",
         pixelRatio: window.devicePixelRatio || 1,
-        showBounds: true,
-        showPositions: true,
-        showCollisions: true,
-        showVelocity: true,
+        // showBounds: true,
+        // showPositions: true,
+        // showCollisions: true,
+        // showVelocity: true,
       },
     });
     renderRef.current = render;
@@ -74,11 +72,11 @@ const ImageDropPhysics = () => {
       document.documentElement.clientWidth / 2,
       eightyPercentHeight,
       document.documentElement.clientWidth,
-      5,
+      15,
       {
         isStatic: true,
         restitution: 0.8, // Bouncy ground
-        render: { fillStyle: "#64748b" },
+        render: { fillStyle: "transparent", opacity: 0 },
       }
     );
 
@@ -89,7 +87,7 @@ const ImageDropPhysics = () => {
       eightyPercentHeight,
       {
         isStatic: true,
-        render: { fillStyle: "#64748b" },
+        render: { fillStyle: "transparent", opacity: 0 },
       }
     );
 
@@ -100,7 +98,7 @@ const ImageDropPhysics = () => {
       eightyPercentHeight,
       {
         isStatic: true,
-        render: { fillStyle: "#64748b" },
+        render: { fillStyle: "transparent", opacity: 0 },
       }
     );
 
@@ -132,7 +130,9 @@ const ImageDropPhysics = () => {
     const { Bodies, World, Body } = Matter;
 
     // Get random image path
-    const imagePath = imagePaths[dropCount % imagePaths.length];
+    const imgIndex = Math.round(Math.random() * imagePaths.length);
+    const imagePath = imagePaths[imgIndex];
+    console.log("imgIndex", imgIndex);
 
     try {
       // Load image to get dimensions
@@ -141,6 +141,7 @@ const ImageDropPhysics = () => {
         img.onload = resolve;
         img.onerror = reject;
         img.src = imagePath;
+        img.style.borderRadius = "9999px";
       });
 
       // Image dimensions (scaled for the scene)
@@ -149,23 +150,40 @@ const ImageDropPhysics = () => {
 
       // Random starting position at top
       const startX = Math.random() * window.innerWidth;
-      // const startX = Math.random() * 400 + 200; // Between 200-600px
       const startY = -50; // Start above the canvas
+      let body;
 
-      // Create physics body with higher restitution for bouncy behavior
-      const body = Bodies.rectangle(startX, startY, width, height, {
-        // restitution: 0.7, // Bounciness
-        restitution: 0.45,
-        friction: 0.01, // Low friction for sliding
-        frictionAir: 0.001, // Low air resistance
-        render: {
-          sprite: {
-            texture: imagePath,
-            xScale: width / img.width,
-            yScale: height / img.height,
+      if (imgIndex > 8) {
+        // Create physics body with higher restitution for bouncy behavior
+        body = Bodies.rectangle(startX, startY, width, height, {
+          // restitution: 0.7, // Bounciness
+          restitution: 0.3,
+          friction: 0.01, // Low friction for sliding
+          frictionAir: 0.001, // Low air resistance
+          render: {
+            sprite: {
+              texture: imagePath,
+              xScale: width / img.width,
+              yScale: height / img.height,
+            },
           },
-        },
-      });
+        });
+      } else {
+        // Create physics body with higher restitution for bouncy behavior
+        body = Bodies.circle(startX, startY, width / 2, {
+          // restitution: 0.7, // Bounciness
+          restitution: 0.3,
+          friction: 0.01, // Low friction for sliding
+          frictionAir: 0.001, // Low air resistance
+          render: {
+            sprite: {
+              texture: imagePath,
+              xScale: width / img.width,
+              yScale: height / img.height,
+            },
+          },
+        });
+      }
 
       // Add some initial rotation for more dynamic movement
       Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.05);
@@ -176,9 +194,6 @@ const ImageDropPhysics = () => {
       // Store reference to the image
       imagesRef.current.push({ body, element: img });
 
-      // Update drop count
-      setDropCount((prev) => prev + 1);
-
       // Clean up old images if there are too many (performance)
       if (imagesRef.current.length > 30) {
         const oldImage = imagesRef.current.shift();
@@ -188,34 +203,18 @@ const ImageDropPhysics = () => {
       }
     } catch (error) {
       console.error("Failed to load image:", error);
-      // Fallback to rectangle if image fails to load
       const body = Bodies.rectangle(400, -50, 160, 160, {
         restitution: 0.45,
         friction: 0.01,
         render: {
-          fillStyle: `hsl(${dropCount * 60}, 70%, 50%)`,
+          fillStyle: `hsl(${imgIndex * 60}, 70%, 50%)`,
           strokeStyle: "#000",
           lineWidth: 2,
         },
       });
       World.add(engineRef.current.world, [body]);
-      setDropCount((prev) => prev + 1);
     }
-  }, [dropCount, imagePaths]);
-
-  // const resetScene = useCallback(() => {
-  //   if (!engineRef.current) return;
-
-  //   const { World } = Matter;
-
-  //   // Remove all image bodies
-  //   imagesRef.current.forEach(({ body }) => {
-  //     World.remove(engineRef.current!.world, body);
-  //   });
-
-  //   imagesRef.current = [];
-  //   setDropCount(0);
-  // }, []);
+  }, [imagePaths]);
 
   useEffect(() => {
     const cleanup = initializePhysics();
