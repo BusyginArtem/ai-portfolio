@@ -6,14 +6,13 @@ import { motion, AnimatePresence } from "motion/react";
 
 import { Button } from "@/components/ui/button";
 
-const MotionButton = motion.create(Button);
-
 const createSunVariants = (
   xMove: number,
   yMove: number,
   disappearDelay: number = 0
 ) => ({
-  initial: { y: 0, x: 0, opacity: 1 },
+  initial: { y: yMove, x: yMove, opacity: 1 },
+  animate: { y: 0, x: 0, opacity: 1 },
   hover: {
     y: yMove,
     x: xMove,
@@ -34,7 +33,8 @@ const createMoonVariants = (
   yMove: number,
   disappearDelay: number = 0
 ) => ({
-  initial: { y: 0, x: 0, opacity: 1, pathLength: 1 },
+  initial: { y: yMove, x: xMove, pathLength: 1 },
+  animate: { y: 0, x: 0, pathLength: 1 },
   hover: {
     y: yMove,
     x: xMove,
@@ -63,7 +63,7 @@ function ThemeToggle() {
 
     setTimeout(() => {
       setTheme(theme);
-    }, 850);
+    }, 900);
   };
 
   useEffect(() => {
@@ -78,15 +78,15 @@ function ThemeToggle() {
   }
 
   return (
-    <MotionButton
+    <Button
       onClick={toggleTheme}
       variant="ghost"
       size="icon"
       className="text-muted-foreground [&_svg]:size-6 p-0 rounded-full relative overflow-visible"
-      onHoverStart={() => setIsHovering(true)}
-      onHoverEnd={() => setIsHovering(false)}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
     >
-      <AnimatePresence mode="wait" initial={false}>
+      <AnimatePresence mode="wait">
         {nextTheme === "dark" ? (
           <motion.svg
             key="sun"
@@ -101,7 +101,7 @@ function ThemeToggle() {
             strokeLinejoin="round"
             className="lucide lucide-sun"
             initial="initial"
-            animate={isHovering ? "hover" : "initial"}
+            animate={isHovering ? "hover" : "animate"}
             exit="exit"
           >
             {/* Sun center */}
@@ -154,7 +154,7 @@ function ThemeToggle() {
             strokeLinejoin="round"
             className="lucide lucide-moon-star"
             initial="initial"
-            animate={isHovering ? "hover" : "initial"}
+            animate={isHovering ? "hover" : "animate"}
             exit="exit"
           >
             <motion.path
@@ -172,7 +172,7 @@ function ThemeToggle() {
           </motion.svg>
         )}
       </AnimatePresence>
-    </MotionButton>
+    </Button>
   );
 }
 
