@@ -248,7 +248,7 @@ const ImageDropPhysics = () => {
     <div className="relative transition-colors h-[80vh] w-full text-center border-t skills_border-bottom-offset min-h-fit">
       <button
         onClick={dropImage}
-        className="text-center text-[rgb(247,245,245)] bg-[rgb(10,10,10)] dark:bg-[rgb(56,55,55)] hover:bg-[rgb(117,116,116)] hover:dark:bg-[rgb(247,245,245)] hover:dark:text-[rgb(10,10,10)] absolute z-[8] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] md:text-xl uppercase w-[160px] h-[160px] md:w-[180px] md:h-[180px] md:normal-case md:px-8 md:py-3 rounded-full "
+        className="text-center text-[rgb(247,245,245)] bg-[rgb(10,10,10)] dark:bg-[rgb(56,55,55)] hover:bg-[rgb(117,116,116)] dark:hover:bg-[rgb(247,245,245)] dark:hover:text-[rgb(10,10,10)] absolute z-8 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] md:text-xl uppercase w-[160px] h-[160px] md:w-[180px] md:h-[180px] md:normal-case md:px-8 md:py-3 rounded-full "
       >
         Skills and technologies. Click me!
       </button>

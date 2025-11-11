@@ -25,7 +25,7 @@ export default function ChatConversation() {
                   return (
                     <Fragment key={`${message.id}-${i}`}>
                       <Message from={message.role} className='transition-all duration-200 hover:scale-[1.01]'>
-                        <MessageContent variant='flat' className='backdrop-blur-sm'>
+                        <MessageContent variant='flat' className='backdrop-blur-xs'>
                           <Response className='text-lg leading-relaxed'>{part.text}</Response>
                         </MessageContent>
                       </Message>
