@@ -31,7 +31,7 @@ export default function Prompt() {
     <div className="mt-4 md:mt-6 animate-in slide-in-from-bottom-8 fade-in duration-700 delay-150">
       <PromptInput
         onSubmit={handleSubmit}
-        className=" [&_[data-slot=input-group]]:!ring-black/5"
+        className=" **:data-[slot=input-group]:ring-black/5!"
       >
         <PromptInputBody className="">
           <PromptInputTextarea
