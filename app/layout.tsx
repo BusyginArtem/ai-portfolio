@@ -8,7 +8,6 @@ import { ChatProvider } from "@/components/providers/chat-context";
 
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-// import CustomCursor from "@/components/custom-cursor";
 
 // const oswald = localFont({ src: '../public/fonts/Oswald/Oswald-VariableFont_wght.ttf' })
 
@@ -24,7 +23,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html
+      lang="en"
+      className="scroll-smooth cursor-rounded"
+      suppressHydrationWarning
+    >
       <body>
         <ThemeProvider
           attribute="class"
@@ -33,7 +36,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          {/* <CustomCursor /> */}
 
           <ChatProvider>{children}</ChatProvider>
 

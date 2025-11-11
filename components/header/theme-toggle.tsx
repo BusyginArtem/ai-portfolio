@@ -82,7 +82,7 @@ function ThemeToggle() {
       onClick={toggleTheme}
       variant="ghost"
       size="icon"
-      className="text-muted-foreground [&_svg]:size-6 p-0 rounded-full relative overflow-visible"
+      className="text-muted-foreground [&_svg]:size-6 p-0 rounded-full relative overflow-visible cursor-theme"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -99,7 +99,7 @@ function ThemeToggle() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="lucide lucide-sun"
+            className="lucide lucide-sun cursor-theme"
             initial="initial"
             animate={isHovering ? "hover" : "animate"}
             exit="exit"
@@ -152,7 +152,7 @@ function ThemeToggle() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="lucide lucide-moon-star"
+            className="lucide lucide-moon-star cursor-theme"
             initial="initial"
             animate={isHovering ? "hover" : "animate"}
             exit="exit"
