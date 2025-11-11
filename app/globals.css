@@ -105,6 +105,53 @@
     @apply bg-background text-foreground font-oswald;
   }
 
+  /* Custom Cursor Styles */
+  /* .cursor-dot {
+    width: 12px;
+    height: 12px;
+    background-color: hsl(var(--foreground));
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease-out;
+  }
+
+  .cursor-outline {
+    width: 48px;
+    height: 48px;
+    border: 2px solid hsl(var(--foreground) / 0.3);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease-out, width 0.2s ease, height 0.2s ease;
+  } */
+
+  /* Hover effect - make outline larger */
+  /* .cursor-outline.hover {
+    width: 48px;
+    height: 48px;
+  } */
+
+  .skills_border-bottom-offset {
+    position: relative;
+  }
+
+  .skills_border-bottom-offset::after {
+    content: "";
+    position: absolute;
+    bottom: 6px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: hsl(var(--border));
+  }
+}
+
+@layer components {
   .skills_border-bottom-offset {
     position: relative;
   }
@@ -118,7 +165,4 @@
     height: 1px;
     background-color: hsl(var(--border));
   }
-}
-
-@layer utilities {
 }

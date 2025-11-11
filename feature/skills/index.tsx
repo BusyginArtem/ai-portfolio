@@ -53,12 +53,6 @@ const ImageDropPhysics = () => {
   const renderRef = useRef<Matter.Render | null>(null);
   const imagesRef = useRef<DroppedImage[]>([]);
 
-  // useEffect(() => {
-  // console.log("renderRef.current", renderRef.current);
-  // console.log("engineRef.current", engineRef.current);
-  // console.log("sceneRef", sceneRef.current);
-  // }, [theme]);
-
   const initializePhysics = useCallback(() => {
     if (!sceneRef.current) return;
 
@@ -129,7 +123,6 @@ const ImageDropPhysics = () => {
     );
 
     // Add boundaries to world
-    // World.add(engine.world, [ground, leftWall, rightWall]);
     Composite.add(engine.world, [ground, leftWall, rightWall]);
 
     // Run the renderer
