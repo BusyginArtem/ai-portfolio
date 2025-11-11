@@ -9,42 +9,42 @@ interface DroppedImage {
 }
 
 const imagePaths = [
-  "/skills/react.png",
-  "/skills/next.png",
-  "/skills/js.png",
-  "/skills/html.png",
-  "/skills/css.png",
-  "/skills/git.png",
-  "/skills/php.png",
-  "/skills/seo.jpg",
-  "/skills/shopify.jpg",
-  "/skills/react.png",
-  "/skills/next.png",
-  "/skills/js.png",
-  "/skills/html.png",
-  "/skills/css.png",
-  "/skills/git.png",
-  "/skills/php.png",
-  "/skills/seo.jpg",
-  "/skills/shopify.jpg",
-  "/skills/react.png",
-  "/skills/next.png",
-  "/skills/js.png",
-  "/skills/html.png",
-  "/skills/css.png",
-  "/skills/git.png",
-  "/skills/php.png",
-  "/skills/seo.jpg",
-  "/skills/shopify.jpg",
-  "/skills/wow.jpeg",
-  "/skills/dev-design.jpeg",
-  "/skills/dev-framework.jpeg",
-  "/skills/office-wow.jpg",
-  "/skills/problem-solving.jpg",
-  "/skills/omg-cat.jpeg",
-  "/skills/management.jpg",
-  "/skills/roadmap.jpg",
-  "/skills/customer-management.jpg",
+  "/skills/circle/react.png",
+  "/skills/circle/next.png",
+  "/skills/circle/js.png",
+  "/skills/circle/html.png",
+  "/skills/circle/css.png",
+  "/skills/circle/git.png",
+  "/skills/circle/php.png",
+  "/skills/square/seo.jpg",
+  "/skills/square/shopify.jpg",
+  "/skills/circle/react.png",
+  "/skills/circle/next.png",
+  "/skills/circle/js.png",
+  "/skills/circle/html.png",
+  "/skills/circle/css.png",
+  "/skills/circle/git.png",
+  "/skills/circle/php.png",
+  "/skills/square/seo.jpg",
+  "/skills/square/shopify.jpg",
+  "/skills/circle/react.png",
+  "/skills/circle/next.png",
+  "/skills/circle/js.png",
+  "/skills/circle/html.png",
+  "/skills/circle/css.png",
+  "/skills/circle/git.png",
+  "/skills/circle/php.png",
+  "/skills/square/seo.jpg",
+  "/skills/square/shopify.jpg",
+  "/skills/square/wow.jpeg",
+  "/skills/square/dev-design.jpeg",
+  "/skills/square/dev-framework.jpeg",
+  "/skills/square/office-wow.jpg",
+  "/skills/square/problem-solving.jpg",
+  "/skills/square/omg-cat.jpeg",
+  "/skills/square/management.jpg",
+  "/skills/square/roadmap.jpg",
+  "/skills/square/customer-management.jpg",
 ];
 
 const ImageDropPhysics = () => {
@@ -149,8 +149,11 @@ const ImageDropPhysics = () => {
     const { Bodies, World, Body } = Matter;
 
     // Get random image path
-    const imgIndex = Math.round(Math.random() * imagePaths.length);
+    const imgIndex = Math.round(Math.random() * (imagePaths.length - 1));
     const imagePath = imagePaths[imgIndex];
+    console.log(imgIndex);
+
+    console.log(imagePath);
 
     try {
       // Load image to get dimensions
@@ -167,9 +170,9 @@ const ImageDropPhysics = () => {
       const startY = -50; // Start above the canvas
       let body;
 
-      if (imgIndex > 26) {
+      if (imagePath.includes("/square/")) {
         // Image dimensions (scaled for the scene)
-        const width = 240;
+        const width = imagePath.includes("/shopify") ? 180 : 240;
         const height = (img.height / img.width) * width; // Maintain aspect ratio
         // Create physics body with higher restitution for bouncy behavior
         body = Bodies.rectangle(startX, startY, width, height, {
@@ -248,7 +251,7 @@ const ImageDropPhysics = () => {
     <div className="relative transition-colors h-[80vh] w-full text-center border-t skills_border-bottom-offset min-h-fit">
       <button
         onClick={dropImage}
-        className="text-center text-[rgb(247,245,245)] bg-[rgb(10,10,10)] dark:bg-[rgb(56,55,55)] hover:bg-[rgb(117,116,116)] dark:hover:bg-[rgb(247,245,245)] dark:hover:text-[rgb(10,10,10)] absolute z-8 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] md:text-xl uppercase w-[160px] h-[160px] md:w-[180px] md:h-[180px] md:normal-case md:px-8 md:py-3 rounded-full "
+        className="text-center text-[rgb(247,245,245)] bg-[rgb(10,10,10)] dark:bg-[rgb(56,55,55)] hover:bg-[rgb(117,116,116)] dark:hover:bg-[rgb(247,245,245)] dark:hover:text-[rgb(10,10,10)] absolute z-8 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] md:text-xl uppercase w-[160px] h-[160px] md:w-[180px] md:h-[180px] md:normal-case md:px-8 md:py-3 rounded-full cursor-none"
       >
         Skills and technologies. Click me!
       </button>
