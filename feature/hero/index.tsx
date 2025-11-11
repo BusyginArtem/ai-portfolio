@@ -62,7 +62,7 @@ export default function Hero() {
       ref={container}
       className="min-h-screen md:max-w-[80%] flex flex-col justify-center items-center px-[16px] md:px-[32px]"
     >
-      <h1 className="text-2xl sm:text-6xl lg:text-8xl leading-none text-balance">
+      <h1 className="text-4xl sm:text-6xl lg:text-8xl leading-none text-balance">
         I&apos;m Artem Busyhin, a front-end developer passionate about building
         sites & apps with great user experiences. My focus is React and Next.js
       </h1>

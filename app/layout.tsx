@@ -8,12 +8,14 @@ import { ChatProvider } from "@/components/providers/chat-context";
 
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+// import CustomCursor from "@/components/custom-cursor";
 
 // const oswald = localFont({ src: '../public/fonts/Oswald/Oswald-VariableFont_wght.ttf' })
 
 export const metadata: Metadata = {
   title: "Artem Busyhin | Personal Portfolio",
-  description: "Artem Busyhin is a front-end Developer with 6 years of experience.",
+  description:
+    "Artem Busyhin is a front-end Developer with 6 years of experience.",
 };
 
 export default function RootLayout({
@@ -22,10 +24,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className='scroll-smooth' suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body>
-        <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <Header />
+          {/* <CustomCursor /> */}
 
           <ChatProvider>{children}</ChatProvider>
 
