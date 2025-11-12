@@ -37,7 +37,7 @@ export default function Hero() {
             pin: true,
             pinSpacing: "margin",
             start: "center center",
-            end: "+=600",
+            end: "+=800",
             scrub: 1,
             toggleActions: "play none none none",
             // markers: true,
@@ -60,7 +60,7 @@ export default function Hero() {
   return (
     <div
       ref={container}
-      className="min-h-screen md:max-w-[80%] flex flex-col justify-center items-center px-[16px] md:px-[32px]"
+      className="min-h-screen md:max-w-[80%] flex flex-col justify-center items-center px-[16px] md:px-[32px] transition-colors"
     >
       <h1 className="text-4xl sm:text-6xl lg:text-8xl leading-none text-balance">
         I&apos;m Artem Busyhin, a front-end developer passionate about building

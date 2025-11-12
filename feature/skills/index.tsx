@@ -9,42 +9,42 @@ interface DroppedImage {
 }
 
 const imagePaths = [
-  "/skills/circle/react.png",
-  "/skills/circle/next.png",
-  "/skills/circle/js.png",
-  "/skills/circle/html.png",
-  "/skills/circle/css.png",
-  "/skills/circle/git.png",
-  "/skills/circle/php.png",
-  "/skills/square/seo.jpg",
-  "/skills/square/shopify.jpg",
-  "/skills/circle/react.png",
-  "/skills/circle/next.png",
-  "/skills/circle/js.png",
-  "/skills/circle/html.png",
-  "/skills/circle/css.png",
-  "/skills/circle/git.png",
-  "/skills/circle/php.png",
-  "/skills/square/seo.jpg",
-  "/skills/square/shopify.jpg",
-  "/skills/circle/react.png",
-  "/skills/circle/next.png",
-  "/skills/circle/js.png",
-  "/skills/circle/html.png",
-  "/skills/circle/css.png",
-  "/skills/circle/git.png",
-  "/skills/circle/php.png",
-  "/skills/square/seo.jpg",
-  "/skills/square/shopify.jpg",
-  "/skills/square/wow.jpeg",
-  "/skills/square/dev-design.jpeg",
-  "/skills/square/dev-framework.jpeg",
-  "/skills/square/office-wow.jpg",
-  "/skills/square/problem-solving.jpg",
-  "/skills/square/omg-cat.jpeg",
-  "/skills/square/management.jpg",
-  "/skills/square/roadmap.jpg",
-  "/skills/square/customer-management.jpg",
+  "/skills/circle/react.webp",
+  "/skills/circle/next.webp",
+  "/skills/circle/js.webp",
+  "/skills/circle/html.webp",
+  "/skills/circle/css.webp",
+  "/skills/circle/git.webp",
+  "/skills/circle/php.webp",
+  "/skills/square/seo.webp",
+  "/skills/square/shopify.webp",
+  "/skills/circle/react.webp",
+  "/skills/circle/next.webp",
+  "/skills/circle/js.webp",
+  "/skills/circle/html.webp",
+  "/skills/circle/css.webp",
+  "/skills/circle/git.webp",
+  "/skills/circle/php.webp",
+  "/skills/square/seo.webp",
+  "/skills/square/shopify.webp",
+  "/skills/circle/react.webp",
+  "/skills/circle/next.webp",
+  "/skills/circle/js.webp",
+  "/skills/circle/html.webp",
+  "/skills/circle/css.webp",
+  "/skills/circle/git.webp",
+  "/skills/circle/php.webp",
+  "/skills/square/seo.webp",
+  "/skills/square/shopify.webp",
+  "/skills/square/wow.webp",
+  "/skills/square/dev-design.webp",
+  "/skills/square/dev-framework.webp",
+  "/skills/square/office-wow.webp",
+  "/skills/square/problem-solving.webp",
+  "/skills/square/omg-cat.webp",
+  "/skills/square/management.webp",
+  "/skills/square/roadmap.webp",
+  "/skills/square/customer-management.webp",
 ];
 
 const ImageDropPhysics = () => {
@@ -92,7 +92,7 @@ const ImageDropPhysics = () => {
       15,
       {
         isStatic: true,
-        restitution: 0.9, // Bouncy ground
+        restitution: 0.75, // Bouncy ground
         render: {
           fillStyle: "transparent",
           opacity: 0,
@@ -176,8 +176,7 @@ const ImageDropPhysics = () => {
         const height = (img.height / img.width) * width; // Maintain aspect ratio
         // Create physics body with higher restitution for bouncy behavior
         body = Bodies.rectangle(startX, startY, width, height, {
-          // restitution: 0.7, // Bounciness
-          restitution: 0.55,
+          restitution: 0.5, // Bounciness
           friction: 0.01, // Low friction for sliding
           frictionAir: 0.001, // Low air resistance
           render: {
@@ -194,8 +193,7 @@ const ImageDropPhysics = () => {
         const height = (img.height / img.width) * width; // Maintain aspect ratio
         // Create physics body with higher restitution for bouncy behavior
         body = Bodies.circle(startX, startY, width / 2, {
-          // restitution: 0.7, // Bounciness
-          restitution: 0.55,
+          restitution: 0.5,
           friction: 0.01, // Low friction for sliding
           frictionAir: 0.001, // Low air resistance
           render: {

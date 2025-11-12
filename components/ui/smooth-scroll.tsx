@@ -45,9 +45,12 @@ export default function SmoothScroll({
 
   return (
     <Button
-      variant='link'
+      variant="link"
       onClick={scrollTo}
-      className={cn("underline-offset-4 uppercase underline hover:no-underline text-base py-0 h-auto", className)}
+      className={cn(
+        "underline-offset-4 uppercase underline hover:no-underline text-base py-0 h-auto",
+        className
+      )}
     >
       {children}
     </Button>
