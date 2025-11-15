@@ -1,4 +1,4 @@
-import AnimatedLink from "../ui/animated-link";
+import AnimatedLink from "../animated-link";
 
 export default function Footer() {
   return (

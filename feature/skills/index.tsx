@@ -151,9 +151,6 @@ const ImageDropPhysics = () => {
     // Get random image path
     const imgIndex = Math.round(Math.random() * (imagePaths.length - 1));
     const imagePath = imagePaths[imgIndex];
-    console.log(imgIndex);
-
-    console.log(imagePath);
 
     try {
       // Load image to get dimensions
@@ -235,7 +232,7 @@ const ImageDropPhysics = () => {
       });
       World.add(engineRef.current.world, [body]);
     }
-  }, [imagePaths]);
+  }, []);
 
   useEffect(() => {
     const cleanup = initializePhysics();
