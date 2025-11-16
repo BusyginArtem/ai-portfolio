@@ -45,6 +45,13 @@ export default function AnimatedLink({
         },
       });
     }
+
+    if (href.startsWith("mailto")) {
+      let a = document.createElement("a");
+      a.href = href;
+      a.target = "_blank";
+      a.click();
+    }
   };
 
   return (

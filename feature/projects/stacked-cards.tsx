@@ -148,7 +148,7 @@ export default function StackedCards() {
         Some Projects
       </h2>
 
-      <div className="relative">
+      <div className="relative h-full min-h-[50vh] py-6">
         {projects.map((project, idx) => (
           <a
             href={project.href}
@@ -157,9 +157,9 @@ export default function StackedCards() {
             style={{ zIndex: idx + 1 }}
             key={project.title}
             id="card-content"
-            className="text-card-foreground p-2 md:p-8 flex flex-col md:flex-row gap-8 md:gap-12 justify-center items-center absolute right-0 left-0 cursor-look"
+            className="text-card-foreground p-2 md:p-8 flex flex-col md:flex-row gap-12 md:gap-20 justify-center items-center absolute right-0 left-0 cursor-look"
           >
-            <div className="w-full max-w-3xl xl:flex-1 h-full" id="card-text">
+            <div className="w-full max-w-3xl h-full" id="card-text">
               <h1 className="text-[clamp(1rem,3vw,2rem)]">{project.title}</h1>
               <p className="mt-2 text-[clamp(1rem,2vw,1.15rem)]">
                 {project.description}
