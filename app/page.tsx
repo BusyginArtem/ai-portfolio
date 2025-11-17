@@ -3,6 +3,8 @@ import Hero from "@/feature/hero";
 import Projects from "@/feature/projects";
 import SkillsSection from "@/feature/skills";
 
+export const dynamic = "force-static";
+
 export default function Portfolio() {
   return (
     <main className="flex flex-col gap-8 py-16 min-h-screen">
