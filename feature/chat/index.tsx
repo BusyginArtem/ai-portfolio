@@ -4,7 +4,7 @@ import Prompt from "./prompt";
 
 export default function ChatBot() {
   return (
-    <div className="flex flex-col justify-end max-w-6xl mx-auto px-[16px] md:px-[32px] pb-[64px] size-full flex-1 mt-20 md:mt-32 transition-colors">
+    <section className="flex flex-col justify-end max-w-6xl mx-auto px-[16px] md:px-[32px] pb-[64px] size-full flex-1 mt-20 md:mt-32 transition-colors">
       <div className="flex flex-col h-full">
         <ChatHeader key="header" />
 
@@ -14,6 +14,6 @@ export default function ChatBot() {
       </div>
 
       <div id="chat" className="h-1 w-1" />
-    </div>
+    </section>
   );
 }
