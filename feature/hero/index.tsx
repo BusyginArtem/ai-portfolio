@@ -4,8 +4,8 @@ import { useRef, useState } from "react";
 
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
 
@@ -18,7 +18,7 @@ export default function Hero() {
     document.fonts.ready.then(() => {
       setFontsReady(true);
     });
-  });
+  }, []);
 
   useGSAP(
     () => {
@@ -58,7 +58,7 @@ export default function Hero() {
   }
 
   return (
-    <div
+    <section
       ref={container}
       className="min-h-screen md:max-w-[80%] flex flex-col justify-center items-center px-[16px] md:px-[32px] transition-colors"
     >
@@ -66,6 +66,6 @@ export default function Hero() {
         I&apos;m Artem Busyhin, a front-end developer passionate about building
         sites & apps with great user experiences. My focus is React and Next.js
       </h1>
-    </div>
+    </section>
   );
 }
