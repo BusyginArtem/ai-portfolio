@@ -1,4 +1,4 @@
-import StackedCards from "./stacked-cards";
+import StackedCards from "./stacked-cards_v2";
 
 export default function Projects() {
   return (
