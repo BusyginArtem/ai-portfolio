@@ -126,6 +126,8 @@ export default function StackedCards() {
             <div className="w-full xl:w-[600px] md:h-full relative aspect-5/3">
               <Image
                 fill
+                quality={90}
+                loading="lazy"
                 sizes="(max-width: 768px) 100%, (max-width: 1200px) 600px, 300px"
                 src={project.image}
                 alt={project.description}
