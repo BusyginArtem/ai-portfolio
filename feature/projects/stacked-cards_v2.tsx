@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
+import Image, { ImageLoader } from "next/image";
 import { useMediaQuery } from "react-responsive";
 
 import { gsap } from "gsap";
@@ -14,28 +14,46 @@ const projects = [
   {
     title: "Greenspace",
     description: "Owned by @GreenSpacePro",
-    image: "/projects/greenspace.webp",
+    // image: "/projects/greenspace.webp",
     href: "https://www.greenspacepro.com/",
+    image:
+      "https://res.cloudinary.com/dtrl8p5mc/image/upload/v1763725659/5_swm0ah.png",
   },
   {
     title: "Swan Bitcoin",
     description: "Owned by @swanbitcoin",
-    image: "/projects/swan.webp",
+    // image: "/projects/swan.webp",
+    image:
+      "https://res.cloudinary.com/dtrl8p5mc/image/upload/v1763725659/4_supra1.png",
     href: "https://www.swanbitcoin.com/",
   },
   {
     title: "Sweet.TV",
     description: "Owned by @sweet.tv",
-    image: "/projects/sweet.tv.webp",
+    // image: "/projects/sweet.tv.webp",
+    image:
+      "https://res.cloudinary.com/dtrl8p5mc/image/upload/v1763725659/3_rribvt.png",
     href: "https://sweet.tv",
   },
   {
     title: "Timesact",
     description: "Owned by @timesact",
-    image: "/projects/timesact.webp",
+    // image: "/projects/timesact.webp",
     href: "https://timesact.com/",
+    image:
+      "https://res.cloudinary.com/dtrl8p5mc/image/upload/v1763725659/2_hewtph.png",
   },
 ] as const;
+
+const imageLoader: ImageLoader = (config) => {
+  const { src, quality } = config;
+  const srcPaths = src.split("upload/");
+  const urlStart = srcPaths[0];
+  const urlEnd = srcPaths[1];
+  const transformations = `h_600,q_${quality}`;
+
+  return `${urlStart}upload/${transformations}/${urlEnd}`;
+};
 
 export default function StackedCards() {
   const container = useRef<HTMLDivElement | null>(null);
@@ -126,7 +144,10 @@ export default function StackedCards() {
             <div className="w-full xl:w-[600px] md:h-full relative aspect-5/3">
               <Image
                 fill
-                sizes="(max-width: 768px) 100%, (max-width: 1200px) 600px, 300px"
+                quality={75}
+                loader={imageLoader}
+                loading="lazy"
+                // sizes="(max-width: 768px) 100%, (max-width: 1200px) 600px, 300px"
                 src={project.image}
                 alt={project.description}
                 className="object-cover object-center rounded-3xl"
