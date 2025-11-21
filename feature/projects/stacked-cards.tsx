@@ -46,7 +46,7 @@ const imageLoader: ImageLoader = (config) => {
   const srcPaths = src.split("upload/");
   const urlStart = srcPaths[0];
   const urlEnd = srcPaths[1];
-  const transformations = `h_600,q_${quality}`;
+  const transformations = `h_600,q_${quality}/f_auto`;
 
   return `${urlStart}upload/${transformations}/${urlEnd}`;
 };
@@ -135,7 +135,7 @@ export default function StackedCards() {
             }}
             key={project.title}
             id="card-content"
-            className="bg-card transform-3d shadow-md border border-border/45 shadow-foreground/5 mx-auto p-4 md:p-6 rounded-3xl max-w-[632px] md:max-w-[648px] flex flex-col items-center justify-between gap-6 absolute right-0 left-0"
+            className="bg-card transform-3d shadow-md border border-border/45 shadow-foreground/3 mx-auto p-4 md:p-6 rounded-3xl max-w-[632px] md:max-w-[648px] flex flex-col items-center justify-between gap-6 absolute right-0 left-0"
           >
             <div className="w-full xl:w-[600px] md:h-full relative aspect-5/3">
               <Image
