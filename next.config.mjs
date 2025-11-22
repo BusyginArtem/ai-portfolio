@@ -11,6 +11,19 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    const urls = [];
+
+    if (process.env.NODE_ENV === "production") {
+      urls.push({
+        source: "/upload",
+        destination: "/",
+        permanent: false,
+      });
+    }
+
+    return urls;
+  },
 };
 
 export default nextConfig;
