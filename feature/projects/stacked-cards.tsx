@@ -121,7 +121,7 @@ export default function StackedCards() {
     <div ref={container} className="transition-colors">
       <h2
         id="title"
-        className="text-4xl text-center md:text-[5vw] leading-none mb-10"
+        className="text-4xl font-medium text-center md:text-[5vw] leading-none mb-10"
       >
         Some Projects
       </h2>
@@ -135,7 +135,7 @@ export default function StackedCards() {
             }}
             key={project.title}
             id="card-content"
-            className="bg-card transform-3d shadow-md border border-border/45 shadow-foreground/3 mx-auto p-4 md:p-6 rounded-3xl max-w-[632px] md:max-w-[648px] flex flex-col items-center justify-between gap-6 absolute right-0 left-0"
+            className="projects_card-shadow bg-card transform-3d border border-border/45 mx-auto p-4 md:p-6 rounded-3xl max-w-[632px] md:max-w-[648px] flex flex-col items-center justify-between gap-6 absolute right-0 left-0"
           >
             <div className="w-full xl:w-[600px] md:h-full relative aspect-5/3">
               <Image
@@ -151,7 +151,7 @@ export default function StackedCards() {
 
             <div className="w-full">
               <a href={project.href} rel="noreferrer noopener" target="_blank">
-                <h1 className="text-[clamp(1.5rem,3vw,3rem)] text-center">
+                <h1 className="text-[clamp(1.5rem,3vw,3rem)] font-medium text-center">
                   {project.title}
                 </h1>
               </a>
