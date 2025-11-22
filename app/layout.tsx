@@ -23,9 +23,9 @@ export default function RootLayout({
     <html lang="en" className="cursor-rounded" suppressHydrationWarning>
       <body>
         <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
+          attribute="data-theme"
+          defaultTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
           <Header />

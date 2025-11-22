@@ -55,6 +55,9 @@
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
 
+  --color-pink: hsl(350 100% 88%);
+  --color-gold: hsl(45 75% 52%);
+
   @keyframes accordion-down {
     from {
       height: 0;
@@ -106,11 +109,11 @@
 }
 
 @layer base {
-  :root {
-    --background: 0 0% 92%;
+  [data-theme="light"] {
+    --background: 0 0% 98%;
     --foreground: 0 0% 3.9%;
 
-    --card: 0 0% 94%;
+    --card: 0 0% 98%;
     --card-foreground: 0 0% 3.9%;
 
     --popover: 0 0% 100%;
@@ -138,7 +141,7 @@
     --radius: 0.5rem;
   }
 
-  .dark {
+  [data-theme="dark"] {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
 
@@ -165,6 +168,36 @@
 
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+  }
+
+  [data-theme="coloured"] {
+    --background: 25 100% 97%;
+    --foreground: 239 90% 74%;
+
+    --card: 25 100% 97%;
+    --card-foreground: 239 90% 74%;
+
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 239 90% 74%;
+
+    --primary: 239 90% 74%;
+    --primary-foreground: 0 0% 9%;
+
+    --secondary: 239 90% 94%;
+    --secondary-foreground: 239 90% 74%;
+
+    --muted: 239 90% 94%;
+    --muted-foreground: 239 90% 75%;
+
+    --accent: 239 90% 94%;
+    --accent-foreground: 239 90% 74%;
+
+    --destructive: 100 52.8% 75.6%;
+    --destructive-foreground: 239 90% 74%;
+
+    --border: 239 90% 94%;
+    --input: 239 90% 94%;
     --ring: 0 0% 83.1%;
   }
 }
@@ -222,27 +255,63 @@
     background-color: hsl(var(--border));
   }
 
-  .cursor-rounded {
+  [data-theme="light"].cursor-rounded {
     cursor: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 32 32'%3e%3ccircle cx='9' cy='9' r='9' fill='hsl(0 0% 3.9%)'/%3e%3c/svg%3e")
         6 8,
       pointer;
   }
 
-  .dark.cursor-rounded {
+  [data-theme="dark"].cursor-rounded {
     cursor: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 32 32'%3e%3ccircle cx='9' cy='9' r='9' fill='hsl(0 0% 92%)'/%3e%3c/svg%3e")
         6 8,
       pointer;
   }
 
-  .cursor-theme {
-    cursor: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 30 30'%3e%3ccircle cx='15' cy='15' r='14' fill='none' stroke='hsl(0 0% 69.8%)' stroke-opacity='.5' stroke-width='1'/%3e%3c/svg%3e")
+  [data-theme="coloured"].cursor-rounded {
+    cursor: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 32 32'%3e%3ccircle cx='9' cy='9' r='9' fill='hsl(239 90% 74%)'/%3e%3c/svg%3e")
+        6 8,
+      pointer;
+  }
+
+  [data-theme="light"] .cursor-theme {
+    cursor: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 30 30'%3e%3ccircle cx='15' cy='15' r='14' fill='none' stroke='hsl(0 0% 14.9%)' stroke-opacity='.2' stroke-width='1'/%3e%3c/svg%3e")
         30 30,
       pointer;
   }
 
-  .dark.cursor-theme {
-    cursor: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 30 30'%3e%3ccircle cx='15' cy='15' r='14' fill='none' stroke='hsl(0 0% 14.9%)' stroke-opacity='.6' stroke-width='1'/%3e%3c/svg%3e")
+  [data-theme="dark"] .cursor-theme {
+    cursor: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 30 30'%3e%3ccircle cx='15' cy='15' r='14' fill='none' stroke='hsl(0 0% 69.8%)' stroke-opacity='.6' stroke-width='1'/%3e%3c/svg%3e")
         30 30,
       pointer;
+  }
+
+  [data-theme="coloured"] .cursor-theme {
+    cursor: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 30 30'%3e%3ccircle cx='15' cy='15' r='14' fill='none' stroke='hsl(139 90% 74%)' stroke-opacity='.1' stroke-width='1'/%3e%3c/svg%3e")
+        30 30,
+      pointer;
+  }
+
+  [data-theme="light"] .skills_button {
+    @apply text-background bg-foreground hover:bg-gold;
+  }
+
+  [data-theme="dark"] .skills_button {
+    @apply text-foreground bg-secondary hover:bg-foreground hover:text-background;
+  }
+
+  [data-theme="coloured"] .skills_button {
+    @apply bg-pink hover:bg-destructive;
+  }
+
+  [data-theme="light"] .projects_card-shadow {
+    @apply shadow-lg shadow-foreground/4;
+  }
+
+  [data-theme="dark"] .projects_card-shadow {
+    @apply shadow-md shadow-foreground/3;
+  }
+
+  [data-theme="coloured"] .projects_card-shadow {
+    @apply shadow-xl  shadow-foreground/10;
   }
 }
