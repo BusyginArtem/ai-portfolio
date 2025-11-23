@@ -94,19 +94,18 @@
   }
 }
 
-@utility skills_border-bottom-offset {
+/* @utility skills_border-bottom-offset {
   position: relative;
 
   &::after {
     content: "";
     position: absolute;
-    bottom: 6px; /* Negative values move it down, positive up */
-    left: 0;
+    bottom: 2px;
     width: 100%;
     height: 1px;
     background-color: hsl(var(--border));
   }
-}
+} */
 
 @layer base {
   :root {
@@ -241,20 +240,6 @@
 
   body {
     @apply bg-background text-foreground font-oswald;
-  }
-
-  .skills_border-bottom-offset {
-    position: relative;
-  }
-
-  .skills_border-bottom-offset::after {
-    content: "";
-    position: absolute;
-    bottom: 6px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: hsl(var(--border));
   }
 
   [data-theme="light"].cursor-rounded {

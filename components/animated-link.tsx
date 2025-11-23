@@ -57,7 +57,7 @@ export default function AnimatedLink({
   return (
     <motion.span
       className={cn(
-        "relative inline-block mr-10 text-base cursor-pointer",
+        "relative inline-block text-base cursor-pointer w-fit",
         className
       )}
       {...props}
