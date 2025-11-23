@@ -9,6 +9,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.BASE_URL!),
   title: "Artem Busyhin | Personal Portfolio",
   description:
     "Artem Busyhin is a front-end Developer with 7 years of experience.",
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
       "Artem Busyhin is a front-end Developer with 7 years of experience.",
     // The URL should be the path *relative to the public folder*
     images: ["/opengraph-image.png"],
-    url: "https://ai-portfolio-two-sigma.vercel.app/", // Replace with your actual deployed URL
+    // url: "https://ai-portfolio-two-sigma.vercel.app/", // Replace with your actual deployed URL
     siteName: "Artem Busyhin | Personal Portfolio",
   },
   // You might also want to add Twitter Card metadata
