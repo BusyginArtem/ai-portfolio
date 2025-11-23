@@ -50,7 +50,7 @@ export default function Prompt() {
           <PromptInputSubmit
             disabled={!input && !status}
             status={status}
-            className=""
+            className="rounded-md cursor-pointer text-background"
           />
         </PromptInputFooter>
       </PromptInput>

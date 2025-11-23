@@ -2,28 +2,39 @@
 
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, easeInOut } from "motion/react";
 
 import { Button } from "@/components/ui/button";
 
 const createPaintVariants = (
-  xMove: number,
   yMove: number,
+  rotate: number = 0,
   disappearDelay: number = 0
 ) => ({
-  initial: { y: yMove, x: yMove, opacity: 1 },
-  animate: { y: 0, x: 0, opacity: 1 },
+  initial: { y: yMove, pathLength: 1 },
+  animate: { y: 0, x: 0, pathLength: 1 },
   hover: {
     y: yMove,
-    x: xMove,
+    rotate,
     transition: {
       duration: 0.05,
     },
   },
   exit: {
-    opacity: 0,
+    y: yMove * 10,
+    rotate: rotate * 3,
+    pathLength: 0,
     transition: {
       delay: disappearDelay,
+      easeInOut,
+      rotate: {
+        duration: 0.2,
+      },
+
+      pathLength: {
+        delay: disappearDelay + 0.5, // or hardcoded number
+        duration: 0.4,
+      },
     },
   },
 });
@@ -110,7 +121,7 @@ function ThemeToggle() {
       onClick={toggleTheme}
       variant="ghost"
       size="icon"
-      className="text-muted-foreground [&_svg]:size-6 p-0 rounded-full relative overflow-visible cursor-theme"
+      className="text-muted-foreground [&_svg]:size-6.5 p-0 rounded-full relative overflow-visible cursor-theme"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -179,22 +190,26 @@ function ThemeToggle() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="lucide lucide-paintbrush-icon lucide-paintbrush"
+            className="lucide lucide-paint-bucket-icon lucide-paint-bucket"
             initial="initial"
             animate={isHovering ? "hover" : "animate"}
             exit="exit"
           >
             <motion.path
-              d="m14.622 17.897-10.68-2.913"
-              variants={createPaintVariants(-1, 1, 0.15)}
+              variants={createPaintVariants(0, 7, 0.15)}
+              d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11Z"
             />
             <motion.path
-              d="M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z"
-              variants={createPaintVariants(-1, 1, 0.15)}
+              variants={createPaintVariants(0, 7, 0.15)}
+              d="m5 2 5 5"
             />
             <motion.path
-              d="M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15"
-              variants={createPaintVariants(-1, 1, 0.15)}
+              variants={createPaintVariants(0, 7, 0.15)}
+              d="M2 13h15"
+            />
+            <motion.path
+              variants={createPaintVariants(1.05, 0, 0.15)}
+              d="M22 20a2 2 0 1 1-4 0c0-1.6 1.7-2.4 2-4 .3 1.6 2 2.4 2 4Z"
             />
           </motion.svg>
         ) : (
