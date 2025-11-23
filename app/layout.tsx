@@ -12,6 +12,23 @@ export const metadata: Metadata = {
   title: "Artem Busyhin | Personal Portfolio",
   description:
     "Artem Busyhin is a front-end Developer with 7 years of experience.",
+  openGraph: {
+    title: "Artem Busyhin | Front-end Developer",
+    description:
+      "Artem Busyhin is a front-end Developer with 7 years of experience.",
+    // The URL should be the path *relative to the public folder*
+    images: ["/opengraph-image.png"],
+    url: "https://ai-portfolio-two-sigma.vercel.app/", // Replace with your actual deployed URL
+    siteName: "Artem Busyhin | Personal Portfolio",
+  },
+  // You might also want to add Twitter Card metadata
+  twitter: {
+    card: "summary_large_image",
+    title: "Artem Busyhin | Front-end Developer",
+    description:
+      "Artem Busyhin is a front-end Developer with 7 years of experience.",
+    images: ["/opengraph-image.png"],
+  },
 };
 
 export default function RootLayout({
