@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useCallback } from "react";
+
+import { useMediaQuery } from "react-responsive";
 import Matter from "matter-js";
 
 interface DroppedImage {
@@ -9,6 +11,15 @@ interface DroppedImage {
 }
 
 const imagePaths = [
+  "/skills/circle/react.webp",
+  "/skills/circle/next.webp",
+  "/skills/circle/js.webp",
+  "/skills/circle/html.webp",
+  "/skills/circle/css.webp",
+  "/skills/circle/git.webp",
+  "/skills/circle/php.webp",
+  // "/skills/square/seo.webp",
+  // "/skills/square/shopify.webp",
   "/skills/circle/react.webp",
   "/skills/circle/next.webp",
   "/skills/circle/js.webp",
@@ -53,6 +64,8 @@ const ImageDropPhysics = () => {
   const renderRef = useRef<Matter.Render | null>(null);
   const imagesRef = useRef<DroppedImage[]>([]);
 
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
   const initializePhysics = useCallback(() => {
     if (!sceneRef.current) return;
 
@@ -65,6 +78,7 @@ const ImageDropPhysics = () => {
     engineRef.current = engine;
 
     const eightyPercentHeight = window.innerHeight * 0.8;
+    const groundThickness = 60;
 
     // Create renderer
     const render = Render.create({
@@ -87,12 +101,12 @@ const ImageDropPhysics = () => {
     // Create boundaries
     const ground = Bodies.rectangle(
       document.documentElement.clientWidth / 2,
-      eightyPercentHeight,
+      eightyPercentHeight + groundThickness / 2,
       document.documentElement.clientWidth,
-      15,
+      groundThickness,
       {
         isStatic: true,
-        restitution: 0.75, // Bouncy ground
+        restitution: 0.8, // Bouncy ground
         render: {
           fillStyle: "transparent",
           opacity: 0,
@@ -101,24 +115,24 @@ const ImageDropPhysics = () => {
     );
 
     const leftWall = Bodies.rectangle(
-      5,
+      -30,
       eightyPercentHeight / 2,
-      5,
-      eightyPercentHeight,
+      60,
+      eightyPercentHeight + 100,
       {
         isStatic: true,
-        render: { fillStyle: "transparent", opacity: 0 },
+        render: { fillStyle: "transparent", opacity: 1 },
       }
     );
 
     const rightWall = Bodies.rectangle(
-      document.documentElement.clientWidth,
+      document.documentElement.clientWidth + 30,
       eightyPercentHeight / 2,
-      5,
-      eightyPercentHeight,
+      60,
+      eightyPercentHeight + 100,
       {
         isStatic: true,
-        render: { fillStyle: "transparent", opacity: 0 },
+        render: { fillStyle: "transparent", opacity: 1 },
       }
     );
 
@@ -169,11 +183,17 @@ const ImageDropPhysics = () => {
 
       if (imagePath.includes("/square/")) {
         // Image dimensions (scaled for the scene)
-        const width = imagePath.includes("/shopify") ? 180 : 240;
+        const width = imagePath.includes("/shopify")
+          ? isMobile
+            ? 120
+            : 180
+          : isMobile
+          ? 140
+          : 240;
         const height = (img.height / img.width) * width; // Maintain aspect ratio
         // Create physics body with higher restitution for bouncy behavior
         body = Bodies.rectangle(startX, startY, width, height, {
-          restitution: 0.5, // Bounciness
+          restitution: 0.4, // Bounciness
           friction: 0.01, // Low friction for sliding
           frictionAir: 0.001, // Low air resistance
           render: {
@@ -186,11 +206,11 @@ const ImageDropPhysics = () => {
         });
       } else {
         // Image dimensions (scaled for the scene)
-        const width = 160;
+        const width = isMobile ? 120 : 160;
         const height = (img.height / img.width) * width; // Maintain aspect ratio
         // Create physics body with higher restitution for bouncy behavior
         body = Bodies.circle(startX, startY, width / 2, {
-          restitution: 0.5,
+          restitution: 0.4,
           friction: 0.01, // Low friction for sliding
           frictionAir: 0.001, // Low air resistance
           render: {
@@ -243,15 +263,15 @@ const ImageDropPhysics = () => {
   }, [initializePhysics]);
 
   return (
-    <section className="relative transition-colors h-[80vh] w-full text-center border-t skills_border-bottom-offset min-h-fit">
+    <section className="relative transition-colors h-[80vh] w-full min-h-fit">
       <button
         onClick={dropImage}
-        className="text-center absolute z-8 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] md:text-xl uppercase w-[160px] h-[160px] md:w-[180px] md:h-[180px] md:normal-case md:px-8 md:py-3 rounded-full cursor-none skills_button"
+        className="text-center absolute z-8 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] text-base md:text-xl uppercase w-[120px] h-[120px] md:w-[180px] md:h-[180px] md:normal-case md:px-8 md:py-3 rounded-full cursor-none skills_button"
       >
         Skills and technologies. Click me!
       </button>
 
-      <div ref={sceneRef} />
+      <div ref={sceneRef} className="border-b border-t" />
     </section>
   );
 };
