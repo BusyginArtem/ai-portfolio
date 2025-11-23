@@ -8,8 +8,12 @@ import { ChatProvider } from "@/components/providers/chat-context";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
+  ? process.env.NEXT_PUBLIC_SITE_URL
+  : "https://vercel.com/artembusyhins-projects/ai-portfolio";
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.BASE_URL!),
+  metadataBase: new URL(SITE_URL),
   title: "Artem Busyhin | Personal Portfolio",
   description:
     "Artem Busyhin is a front-end Developer with 7 years of experience.",
