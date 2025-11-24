@@ -6,10 +6,7 @@ export default function Header() {
     <header className="bg-background theme-colors transition-colors fixed z-10 top-0 border-b">
       <nav className="grid grid-cols-3 items-center w-screen px-4 md:px-10 ">
         <div className="text-left py-4 md:py-6">
-          <AnimatedLink
-            href="/#projects"
-            className="uppercase tracking-wider text-sm md:text-base"
-          >
+          <AnimatedLink href="/#projects" className="header-link">
             Projects
           </AnimatedLink>
         </div>
@@ -19,10 +16,7 @@ export default function Header() {
         </div>
 
         <div className="text-right py-4 md:py-6">
-          <AnimatedLink
-            href="/#chat"
-            className="uppercase tracking-wider text-sm md:text-base"
-          >
+          <AnimatedLink href="/#chat" className="header-link">
             Chat
           </AnimatedLink>
         </div>

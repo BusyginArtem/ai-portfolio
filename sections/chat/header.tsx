@@ -62,7 +62,7 @@ export default function ChatHeader() {
   return (
     <div
       ref={container}
-      className="flex flex-col items-center justify-center flex-1 space-y-4 border-b border-border border-spacing-2 pb-4"
+      className="col-center flex-1 space-y-4 border-b border-border border-spacing-2 pb-4"
     >
       <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-oswald uppercase tracking-wider text-center ">
         Ask me anything

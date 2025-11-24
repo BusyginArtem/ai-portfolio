@@ -56,10 +56,7 @@ export default function AnimatedLink({
 
   return (
     <motion.span
-      className={cn(
-        "relative inline-block text-base cursor-pointer w-fit",
-        className
-      )}
+      className={cn("relative inline-block cursor-pointer w-fit", className)}
       {...props}
       onClick={handleClick}
       whileHover="enter"

@@ -1,7 +1,7 @@
-import ChatBot from "@/feature/chat";
-import Hero from "@/feature/hero";
-import Projects from "@/feature/projects";
-import SkillsSection from "@/feature/skills";
+import ChatBot from "@/sections/chat";
+import Hero from "@/sections/hero";
+import Projects from "@/sections/projects";
+import SkillsSection from "@/sections/skills";
 
 export const dynamic = "force-static";
 
