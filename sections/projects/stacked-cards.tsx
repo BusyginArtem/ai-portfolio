@@ -17,6 +17,7 @@ const projects = [
     href: "https://www.greenspacepro.com/",
     image:
       "https://res.cloudinary.com/dtrl8p5mc/image/upload/v1763725659/5_swm0ah.png",
+    dataId: "greenspace",
   },
   {
     title: "Swan Bitcoin",
@@ -24,6 +25,7 @@ const projects = [
     image:
       "https://res.cloudinary.com/dtrl8p5mc/image/upload/v1763725659/4_supra1.png",
     href: "https://www.swanbitcoin.com/",
+    dataId: "swan",
   },
   {
     title: "Sweet.TV",
@@ -31,6 +33,7 @@ const projects = [
     image:
       "https://res.cloudinary.com/dtrl8p5mc/image/upload/v1763725659/3_rribvt.png",
     href: "https://sweet.tv",
+    dataId: "sweet",
   },
   {
     title: "Timesact",
@@ -38,6 +41,7 @@ const projects = [
     href: "https://timesact.com/",
     image:
       "https://res.cloudinary.com/dtrl8p5mc/image/upload/v1763725659/2_hewtph.png",
+    dataId: "timesact",
   },
 ] as const;
 
@@ -77,9 +81,9 @@ export default function StackedCards() {
         .to(
           "#title",
           {
-            scale: isTabletOrMobile ? 0.8 : 0.4,
+            scale: isTabletOrMobile ? 0.6 : 0.4,
             duration: 0.05,
-            y: isTabletOrMobile ? -175 : -200,
+            y: isTabletOrMobile ? -200 : -215,
           },
           0
         )
@@ -87,7 +91,7 @@ export default function StackedCards() {
           "#card-content",
           {
             duration: 0.05,
-            y: isTabletOrMobile ? -175 : -200,
+            y: isTabletOrMobile ? -200 : -250,
           },
           0
         );
@@ -135,7 +139,8 @@ export default function StackedCards() {
             }}
             key={project.title}
             id="card-content"
-            className="projects_card-shadow bg-card transform-3d border border-border/45 mx-auto p-4 md:p-6 rounded-3xl max-w-[632px] md:max-w-[648px] flex flex-col items-center justify-between gap-6 absolute right-0 left-0"
+            data-card={project.dataId}
+            className="projects-card hover:scale-105 transform-3d mx-auto p-4 md:p-6 rounded-3xl max-w-[632px] md:max-w-[648px] flex flex-col items-center justify-between gap-6 absolute right-0 left-0"
           >
             <div className="w-full xl:w-[600px] md:h-full relative aspect-5/3">
               <Image
@@ -155,9 +160,16 @@ export default function StackedCards() {
                   {project.title}
                 </h1>
               </a>
-              <p className="mt-2 text-[clamp(1rem,2vw,1.25rem)] text-center">
-                {project.description}
-              </p>
+              <div className="flex wrap justify-center">
+                {project.description.split(" ").map((part) => (
+                  <span
+                    key={part}
+                    className="description mt-2 text-[clamp(0.65rem,2vw,0.9rem)] text-center uppercase ml-1 rounded-xs"
+                  >
+                    {part}
+                  </span>
+                ))}
+              </div>
             </div>
           </article>
         ))}

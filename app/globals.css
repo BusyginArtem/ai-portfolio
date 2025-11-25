@@ -52,28 +52,8 @@
   --font-oswald: var(--font-oswald), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  --animate-accordion-up: accordion-up 0.2s ease-out;
-
   --color-pink: hsl(350 100% 88%);
   --color-gold: hsl(45 75% 52%);
-
-  @keyframes accordion-down {
-    from {
-      height: 0;
-    }
-    to {
-      height: var(--radix-accordion-content-height);
-    }
-  }
-  @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height);
-    }
-    to {
-      height: 0;
-    }
-  }
 }
 
 /*
@@ -108,8 +88,22 @@
 } */
 
 @layer base {
+  @font-face {
+    font-family: "Oswald";
+    src: url("/fonts/Oswald/Oswald-VariableFont_wght.ttf")
+      format("truetype-variations");
+    font-weight: 100 500 700 900;
+    font-stretch: 75% 125%;
+    font-display: swap;
+    ascent-override: 95%;
+    descent-override: 25%;
+    line-gap-override: 0%;
+  }
+
   :root {
     --radius: 0.5rem;
+    --font-oswald: "Oswald", sans-serif;
+    --font-metrics-oswald: 1.1;
   }
 
   [data-theme="light"] {
@@ -201,38 +195,6 @@
     --input: 239 90% 94%;
     --ring: 0 0% 83.1%;
   }
-}
-
-@layer base {
-  @font-face {
-    font-family: "Oswald";
-    src: url("/fonts/Oswald/Oswald-VariableFont_wght.ttf")
-      format("truetype-variations");
-    font-weight: 100 500 700 900;
-    font-stretch: 75% 125%;
-    font-display: swap;
-    ascent-override: 95%;
-    descent-override: 25%;
-    line-gap-override: 0%;
-  }
-
-  /* @font-face {
-    font-family: "Open Sans";
-    src: url("/fonts/Open_Sans/OpenSans-VariableFont_wdth,wght.ttf") format("truetype-variations");
-    font-weight: 100 900;
-    font-stretch: 75% 125%;
-    font-display: swap;
-    ascent-override: 92%;
-    descent-override: 24%;
-    line-gap-override: 0%;
-  } */
-
-  :root {
-    --font-oswald: "Oswald", sans-serif;
-    --font-metrics-oswald: 1.1;
-    /* --font-open-sans: "Open Sans", sans-serif;
-    --font-metrics-open-sans: 1.1; */
-  }
 
   * {
     @apply border-border;
@@ -241,7 +203,23 @@
   body {
     @apply bg-background text-foreground font-oswald;
   }
+}
 
+@layer utilities {
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+
+  .col-center {
+    @apply flex flex-col justify-center items-center;
+  }
+
+  .general-title {
+    @apply 2xl:text-[8.5rem] md:text-8xl text-5xl font-bold uppercase leading-[9vw] tracking-[-.35vw];
+  }
+}
+
+@layer components {
   [data-theme="light"].cursor-rounded {
     cursor: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 32 32'%3e%3ccircle cx='9' cy='9' r='9' fill='hsl(0 0% 3.9%)'/%3e%3c/svg%3e")
         6 8,
@@ -290,15 +268,59 @@
     @apply bg-pink hover:bg-destructive;
   }
 
-  [data-theme="light"] .projects_card-shadow {
-    @apply shadow-lg shadow-foreground/4;
+  [data-theme="light"] .projects-card {
+    @apply shadow-xl shadow-foreground/4;
+
+    &[data-card] {
+      @apply bg-card border border-border/25;
+    }
   }
 
-  [data-theme="dark"] .projects_card-shadow {
-    @apply shadow-md shadow-foreground/3;
+  [data-theme="dark"] .projects-card {
+    @apply shadow-lg shadow-foreground/2 border border-border/45;
+
+    &[data-card] {
+      @apply bg-card border border-border/45;
+    }
   }
 
-  [data-theme="coloured"] .projects_card-shadow {
-    @apply shadow-xl  shadow-foreground/10;
+  [data-theme="coloured"] .projects-card {
+    @apply shadow-xl shadow-gray-200;
+
+    &[data-card="timesact"] {
+      @apply bg-[#f1f5f7] text-[#2c3e50];
+
+      & .description {
+        @apply bg-[#2c3e50] text-white px-1;
+      }
+    }
+
+    &[data-card="sweet"] {
+      @apply bg-[#f9d2cb] text-[#d80a0a];
+
+      & .description {
+        @apply bg-[#d80a0a] text-white px-1;
+      }
+    }
+
+    &[data-card="swan"] {
+      @apply bg-[#f0e7df] text-[#7e6f5d];
+
+      & .description {
+        @apply bg-[#7e6f5d] text-white px-1;
+      }
+    }
+
+    &[data-card="greenspace"] {
+      @apply bg-[#ede6d8] text-[#87935b];
+
+      & .description {
+        @apply bg-[#87935b] text-white px-1;
+      }
+    }
+  }
+
+  .header-link {
+    @apply uppercase tracking-wider text-base md:text-lg;
   }
 }
