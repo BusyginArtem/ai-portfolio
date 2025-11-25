@@ -270,17 +270,57 @@
 
   [data-theme="light"] .projects-card {
     @apply shadow-xl shadow-foreground/4;
+
+    &[data-card] {
+      @apply bg-card border border-border/25;
+    }
   }
 
   [data-theme="dark"] .projects-card {
     @apply shadow-lg shadow-foreground/2 border border-border/45;
+
+    &[data-card] {
+      @apply bg-card border border-border/45;
+    }
   }
 
   [data-theme="coloured"] .projects-card {
     @apply shadow-xl shadow-gray-200;
+
+    &[data-card="timesact"] {
+      @apply bg-[#f1f5f7] text-[#2c3e50];
+
+      & .description {
+        @apply bg-[#2c3e50] text-white px-1;
+      }
+    }
+
+    &[data-card="sweet"] {
+      @apply bg-[#f9d2cb] text-[#d80a0a];
+
+      & .description {
+        @apply bg-[#d80a0a] text-white px-1;
+      }
+    }
+
+    &[data-card="swan"] {
+      @apply bg-[#f0e7df] text-[#7e6f5d];
+
+      & .description {
+        @apply bg-[#7e6f5d] text-white px-1;
+      }
+    }
+
+    &[data-card="greenspace"] {
+      @apply bg-[#ede6d8] text-[#87935b];
+
+      & .description {
+        @apply bg-[#87935b] text-white px-1;
+      }
+    }
   }
 
   .header-link {
-    @apply uppercase tracking-wider text-base md:text-xl;
+    @apply uppercase tracking-wider text-base md:text-lg;
   }
 }

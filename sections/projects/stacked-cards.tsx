@@ -17,8 +17,7 @@ const projects = [
     href: "https://www.greenspacepro.com/",
     image:
       "https://res.cloudinary.com/dtrl8p5mc/image/upload/v1763725659/5_swm0ah.png",
-    bgColor: "#ede6d8",
-    color: "#87935b",
+    dataId: "greenspace",
   },
   {
     title: "Swan Bitcoin",
@@ -26,9 +25,7 @@ const projects = [
     image:
       "https://res.cloudinary.com/dtrl8p5mc/image/upload/v1763725659/4_supra1.png",
     href: "https://www.swanbitcoin.com/",
-
-    bgColor: "#f0e7df",
-    color: "#7e6f5d",
+    dataId: "swan",
   },
   {
     title: "Sweet.TV",
@@ -36,8 +33,7 @@ const projects = [
     image:
       "https://res.cloudinary.com/dtrl8p5mc/image/upload/v1763725659/3_rribvt.png",
     href: "https://sweet.tv",
-    bgColor: "#f9d2cb",
-    color: "#d80a0a",
+    dataId: "sweet",
   },
   {
     title: "Timesact",
@@ -45,8 +41,7 @@ const projects = [
     href: "https://timesact.com/",
     image:
       "https://res.cloudinary.com/dtrl8p5mc/image/upload/v1763725659/2_hewtph.png",
-    bgColor: "#f1f5f7",
-    color: "#2c3e50",
+    dataId: "timesact",
   },
 ] as const;
 
@@ -86,9 +81,9 @@ export default function StackedCards() {
         .to(
           "#title",
           {
-            scale: isTabletOrMobile ? 0.8 : 0.3,
+            scale: isTabletOrMobile ? 0.6 : 0.4,
             duration: 0.05,
-            y: isTabletOrMobile ? -175 : -225,
+            y: isTabletOrMobile ? -200 : -215,
           },
           0
         )
@@ -96,7 +91,7 @@ export default function StackedCards() {
           "#card-content",
           {
             duration: 0.05,
-            y: isTabletOrMobile ? -175 : -250,
+            y: isTabletOrMobile ? -200 : -250,
           },
           0
         );
@@ -141,11 +136,10 @@ export default function StackedCards() {
             style={{
               zIndex: idx - 1,
               rotate: `${(idx + 1) * 0.9 * (idx % 2 === 0 ? 1 : -1)}deg`,
-              // backgroundColor: project.bgColor,
-              // color: project.color,
             }}
             key={project.title}
             id="card-content"
+            data-card={project.dataId}
             className="projects-card hover:scale-105 transform-3d mx-auto p-4 md:p-6 rounded-3xl max-w-[632px] md:max-w-[648px] flex flex-col items-center justify-between gap-6 absolute right-0 left-0"
           >
             <div className="w-full xl:w-[600px] md:h-full relative aspect-5/3">
@@ -170,12 +164,7 @@ export default function StackedCards() {
                 {project.description.split(" ").map((part) => (
                   <span
                     key={part}
-                    style={
-                      {
-                        // backgroundColor: project.color,
-                      }
-                    }
-                    className="mt-2 text-[clamp(0.65rem,2vw,0.9rem)] text-center text-foreground uppercase ml-1.5 px-1 rounded-xs"
+                    className="description mt-2 text-[clamp(0.65rem,2vw,0.9rem)] text-center uppercase ml-1 rounded-xs"
                   >
                     {part}
                   </span>

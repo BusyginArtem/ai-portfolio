@@ -88,7 +88,7 @@ function ThemeToggle() {
 
   const [mounted, setMounted] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-  const [nextTheme, setNextTheme] = useState(resolvedTheme);
+  const [currentTheme, setCurrentTheme] = useState(resolvedTheme);
 
   const toggleTheme = () => {
     const theme =
@@ -98,7 +98,7 @@ function ThemeToggle() {
         ? "coloured"
         : "dark";
 
-    setNextTheme(theme);
+    setCurrentTheme(theme);
 
     setTimeout(() => {
       setTheme(theme);
@@ -126,7 +126,7 @@ function ThemeToggle() {
       onMouseLeave={() => setIsHovering(false)}
     >
       <AnimatePresence mode="wait">
-        {nextTheme === "dark" ? (
+        {currentTheme === "dark" ? (
           <motion.svg
             key="sun"
             xmlns="http://www.w3.org/2000/svg"
@@ -179,7 +179,7 @@ function ThemeToggle() {
               variants={createSunVariants(1, -1, 0.1)}
             />
           </motion.svg>
-        ) : nextTheme === "light" ? (
+        ) : currentTheme === "light" ? (
           <motion.svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
