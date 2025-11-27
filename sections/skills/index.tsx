@@ -8,36 +8,10 @@ import Matter from "matter-js";
 interface DroppedImage {
   body: Matter.Body;
   element: HTMLImageElement;
+  path: string;
 }
 
-const imagePaths = [
-  "/skills/circle/react.webp",
-  "/skills/circle/next.webp",
-  "/skills/circle/js.webp",
-  "/skills/circle/html.webp",
-  "/skills/circle/css.webp",
-  "/skills/circle/git.webp",
-  "/skills/circle/php.webp",
-  // "/skills/square/seo.webp",
-  // "/skills/square/shopify.webp",
-  "/skills/circle/react.webp",
-  "/skills/circle/next.webp",
-  "/skills/circle/js.webp",
-  "/skills/circle/html.webp",
-  "/skills/circle/css.webp",
-  "/skills/circle/git.webp",
-  "/skills/circle/php.webp",
-  "/skills/square/seo.webp",
-  "/skills/square/shopify.webp",
-  "/skills/circle/react.webp",
-  "/skills/circle/next.webp",
-  "/skills/circle/js.webp",
-  "/skills/circle/html.webp",
-  "/skills/circle/css.webp",
-  "/skills/circle/git.webp",
-  "/skills/circle/php.webp",
-  "/skills/square/seo.webp",
-  "/skills/square/shopify.webp",
+const uniqueImagePaths = [
   "/skills/circle/react.webp",
   "/skills/circle/next.webp",
   "/skills/circle/js.webp",
@@ -58,11 +32,40 @@ const imagePaths = [
   "/skills/square/customer-management.webp",
 ];
 
-const ImageDropPhysics = () => {
+const rareImagePaths = new Set([
+  "/skills/square/wow.webp",
+  "/skills/square/dev-design.webp",
+  "/skills/square/dev-framework.webp",
+  "/skills/square/office-wow.webp",
+  "/skills/square/problem-solving.webp",
+  "/skills/square/omg-cat.webp",
+  "/skills/square/management.webp",
+  "/skills/square/roadmap.webp",
+  "/skills/square/customer-management.webp",
+]);
+
+const selectWeightedRandom = (pool: string[]) => {
+  if (pool.length === 0) return "";
+
+  const weights = pool.map((path) => (rareImagePaths.has(path) ? 0.35 : 1));
+
+  const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
+  let threshold = Math.random() * totalWeight;
+
+  for (let i = 0; i < pool.length; i += 1) {
+    threshold -= weights[i];
+    if (threshold <= 0) return pool[i];
+  }
+
+  return pool[pool.length - 1];
+};
+
+const Skills = () => {
   const sceneRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<Matter.Engine | null>(null);
   const renderRef = useRef<Matter.Render | null>(null);
   const imagesRef = useRef<DroppedImage[]>([]);
+  const usedImagesRef = useRef<Set<string>>(new Set());
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
@@ -157,14 +160,34 @@ const ImageDropPhysics = () => {
     };
   }, []);
 
+  const getNextImagePath = useCallback(() => {
+    const canAvoidDuplicates = imagesRef.current.length < 30;
+
+    if (canAvoidDuplicates) {
+      const unused = uniqueImagePaths.filter(
+        (path) => !usedImagesRef.current.has(path)
+      );
+
+      const pool =
+        unused.length > 0
+          ? unused
+          : (usedImagesRef.current.clear(), uniqueImagePaths);
+
+      const path = selectWeightedRandom(pool);
+      usedImagesRef.current.add(path);
+      return path;
+    }
+
+    return selectWeightedRandom(uniqueImagePaths);
+  }, []);
+
   const dropImage = useCallback(async () => {
     if (!engineRef.current) return;
 
     const { Bodies, World, Body } = Matter;
 
-    // Get random image path
-    const imgIndex = Math.round(Math.random() * (imagePaths.length - 1));
-    const imagePath = imagePaths[imgIndex];
+    // Get random image path without repeating when under the 30-image cap
+    const imagePath = getNextImagePath();
 
     try {
       // Load image to get dimensions
@@ -185,10 +208,10 @@ const ImageDropPhysics = () => {
         // Image dimensions (scaled for the scene)
         const width = imagePath.includes("/shopify")
           ? isMobile
-            ? 120
+            ? 80
             : 180
           : isMobile
-          ? 140
+          ? 100
           : 240;
         const height = (img.height / img.width) * width; // Maintain aspect ratio
         // Create physics body with higher restitution for bouncy behavior
@@ -206,7 +229,7 @@ const ImageDropPhysics = () => {
         });
       } else {
         // Image dimensions (scaled for the scene)
-        const width = isMobile ? 120 : 160;
+        const width = isMobile ? 80 : 160;
         const height = (img.height / img.width) * width; // Maintain aspect ratio
         // Create physics body with higher restitution for bouncy behavior
         body = Bodies.circle(startX, startY, width / 2, {
@@ -230,29 +253,31 @@ const ImageDropPhysics = () => {
       World.add(engineRef.current.world, [body]);
 
       // Store reference to the image
-      imagesRef.current.push({ body, element: img });
+      imagesRef.current.push({ body, element: img, path: imagePath });
 
       // Clean up old images if there are too many (performance)
       if (imagesRef.current.length > 30) {
         const oldImage = imagesRef.current.shift();
         if (oldImage) {
           World.remove(engineRef.current.world, oldImage.body);
+          usedImagesRef.current.delete(oldImage.path);
         }
       }
     } catch (error) {
       console.error("Failed to load image:", error);
+      const fallbackHue = Math.floor(Math.random() * 360);
       const body = Bodies.rectangle(400, -50, 160, 160, {
         restitution: 0.55,
         friction: 0.01,
         render: {
-          fillStyle: `hsl(${imgIndex * 60}, 70%, 50%)`,
+          fillStyle: `hsl(${fallbackHue}, 70%, 50%)`,
           strokeStyle: "#000",
           lineWidth: 2,
         },
       });
       World.add(engineRef.current.world, [body]);
     }
-  }, []);
+  }, [getNextImagePath, isMobile]);
 
   useEffect(() => {
     const cleanup = initializePhysics();
@@ -276,4 +301,4 @@ const ImageDropPhysics = () => {
   );
 };
 
-export default ImageDropPhysics;
+export default Skills;

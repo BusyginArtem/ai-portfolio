@@ -312,10 +312,18 @@
     }
 
     &[data-card="greenspace"] {
-      @apply bg-[#ede6d8] text-[#87935b];
+      @apply bg-[#ede6d1] text-[#87935b];
 
       & .description {
         @apply bg-[#87935b] text-white px-1;
+      }
+    }
+
+    &[data-card="inpaint"] {
+      @apply bg-[#e8e0dd] text-[#676a74];
+
+      & .description {
+        @apply bg-[#676a74] text-white px-1;
       }
     }
   }

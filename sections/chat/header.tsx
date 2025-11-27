@@ -24,7 +24,11 @@ export default function ChatHeader() {
     () => {
       if (!fontsReady || !container.current) return;
 
-      const split = SplitText.create(container.current, {
+      const title = SplitText.create(".title", {
+        type: "lines",
+      });
+
+      const subtitle = SplitText.create(".subtitle", {
         type: "lines",
       });
 
@@ -32,20 +36,24 @@ export default function ChatHeader() {
         .timeline({
           scrollTrigger: {
             trigger: container.current,
-            start: "top bottom-=100px",
+            start: "top bottom-=250px",
             once: true,
+            // markers: true,
           },
         })
-        .from(split.lines, {
+        .from(title.lines, {
           duration: 0.5,
           y: 150,
-          stagger: 0.05,
         })
-        .to(split.lines, {
-          duration: 0.5,
-          y: 0,
-          stagger: 0,
-        });
+        .from(
+          subtitle.lines,
+          {
+            duration: 0.5,
+            y: 200,
+            stagger: 0.2,
+          },
+          ">-0.35"
+        );
     },
     { scope: container, dependencies: [fontsReady] }
   );
@@ -64,10 +72,10 @@ export default function ChatHeader() {
       ref={container}
       className="col-center flex-1 space-y-4 border-b border-border border-spacing-2 pb-4"
     >
-      <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-oswald uppercase tracking-wider text-center ">
+      <h2 className="title text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-oswald uppercase tracking-wider text-center ">
         Ask me anything
       </h2>
-      <p className="text-base sm:text-2xl text-muted-foreground text-center text-balance">
+      <p className="subtitle text-base sm:text-2xl text-muted-foreground text-center text-balance">
         I&apos;m here to answer questions about my experience, skills, and
         background
       </p>

@@ -12,6 +12,14 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const projects = [
   {
+    title: "AI Image Inpaint",
+    description: "Owned by @artembusyhin",
+    href: "https://ai-image-enhancer-ashen.vercel.app/",
+    image:
+      "https://res.cloudinary.com/dtrl8p5mc/image/upload/v1764245731/Screenshot_9_ykwzvq.png",
+    dataId: "inpaint",
+  },
+  {
     title: "Greenspace",
     description: "Owned by @GreenSpacePro",
     href: "https://www.greenspacepro.com/",
