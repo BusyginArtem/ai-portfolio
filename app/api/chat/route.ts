@@ -70,7 +70,6 @@ export async function POST(req: Request) {
 
     const result = streamText({
       model: registry.languageModel("deepseek:fast"),
-      // model: registry.languageModel("openai:fast"),
       messages: convertToModelMessages(messages),
       tools,
       system: buildSystemPrompt(),

@@ -1,7 +1,13 @@
 import { anthropic } from "@ai-sdk/anthropic";
 import { openai } from "@ai-sdk/openai";
-import { deepseek } from '@ai-sdk/deepseek';
-import { createProviderRegistry, customProvider, defaultSettingsMiddleware, wrapLanguageModel } from "ai";
+import { deepseek } from "@ai-sdk/deepseek";
+import { google } from "@ai-sdk/google";
+import {
+  createProviderRegistry,
+  customProvider,
+  defaultSettingsMiddleware,
+  wrapLanguageModel,
+} from "ai";
 
 const customOpenAI = customProvider({
   languageModels: {
@@ -23,6 +29,14 @@ const customOpenAI = customProvider({
   fallbackProvider: openai,
 });
 
+const customGemini = customProvider({
+  languageModels: {
+    fast: google("gemini-2.0-flash"),
+    smart: google("gemini-3-pro-preview"),
+  },
+  fallbackProvider: google,
+});
+
 const customAnthropic = customProvider({
   languageModels: {
     fast: anthropic("claude-3-5-haiku-20241022"),
@@ -42,5 +56,5 @@ export const registry = createProviderRegistry({
   openai: customOpenAI,
   anthropic: customAnthropic,
   deepseek: customDeepseek,
+  gemini: customGemini,
 });
-
