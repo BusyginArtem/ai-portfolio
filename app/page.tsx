@@ -7,7 +7,7 @@ export const dynamic = "force-static";
 
 export default function Portfolio() {
   return (
-    <main className="flex flex-col py-16 min-h-screen">
+    <main className="flex flex-col py-16 min-h-dvh">
       <Hero />
 
       <SkillsSection />

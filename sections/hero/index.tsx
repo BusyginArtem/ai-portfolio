@@ -54,13 +54,13 @@ export default function Hero() {
   );
 
   if (!fontsReady) {
-    return <div className="min-h-screen flex-1 px-[16px] md:px-[32px] " />;
+    return <div className="min-h-dvh flex-1 px-4 md:px-8 " />;
   }
 
   return (
     <section
       ref={container}
-      className="min-h-screen md:max-w-[80%] col-center px-[16px] md:px-[32px] transition-colors"
+      className="min-h-dvh md:max-w-[80%] col-center px-4 md:px-8 transition-colors"
     >
       <h1 className="text-4xl sm:text-6xl lg:text-8xl leading-none text-balance">
         I&apos;m Artem Busyhin, a front-end developer passionate about building

@@ -148,9 +148,9 @@ export default function StackedCards() {
             key={project.title}
             id="card-content"
             data-card={project.dataId}
-            className="projects-card hover:scale-105 transform-3d mx-auto p-4 md:p-6 rounded-3xl max-w-[632px] md:max-w-[648px] flex flex-col items-center justify-between gap-6 absolute right-0 left-0"
+            className="group projects-card transform-3d mx-auto p-4 md:p-6 rounded-3xl max-w-[632px] md:max-w-[648px] flex flex-col items-center justify-between gap-6 absolute right-0 left-0"
           >
-            <div className="w-full xl:w-[600px] md:h-full relative aspect-5/3">
+            <div className="w-full xl:w-[600px] md:h-full relative aspect-5/3 overflow-hidden rounded-3xl">
               <Image
                 fill
                 quality={75}
@@ -158,7 +158,7 @@ export default function StackedCards() {
                 loading="lazy"
                 src={project.image}
                 alt={project.description}
-                className="object-cover object-center rounded-3xl"
+                className="object-cover object-center rounded-3xl group-hover:scale-102 transition-transform duration-300"
               />
             </div>
 
