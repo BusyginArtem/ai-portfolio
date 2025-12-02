@@ -30,20 +30,39 @@ export default function AnimatedLink({
   children: React.ReactNode;
 }) {
   const handleClick = () => {
-    if (href.startsWith("/#")) {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.disable(false));
+    if (typeof window === "undefined") return;
 
-      gsap.to(window, {
-        duration: 1,
-        scrollTo: {
-          y: href.slice(1),
-          autoKill: false, // Prevents ScrollTrigger from interrupting the scroll tween
-        },
-        onComplete: () => {
-          ScrollTrigger.refresh(true);
-          ScrollTrigger.getAll().forEach((trigger) => trigger.enable());
-        },
-      });
+    if (href.startsWith("/#")) {
+      const targetSelector = href.slice(1); // "#section"
+
+      try {
+        // disable all ScrollTriggers while animating
+        ScrollTrigger.getAll().forEach((trigger) => trigger.disable(false));
+
+        // Try to resolve an element first, otherwise pass the selector/string to ScrollToPlugin
+        const el = document.querySelector(targetSelector);
+        const scrollToTarget = el || targetSelector;
+
+        console.log("GSAP scrolling to:", scrollToTarget);
+
+        gsap.to(window, {
+          duration: 1,
+          scrollTo: {
+            y: scrollToTarget,
+            autoKill: false, // Prevents ScrollTrigger from interrupting the scroll tween
+          },
+          onComplete: () => {
+            ScrollTrigger.refresh(true);
+            ScrollTrigger.getAll().forEach((trigger) => trigger.enable());
+          },
+        });
+      } catch (err) {
+        console.error("GSAP scroll error:", err);
+        // make sure triggers are enabled on error
+        ScrollTrigger.getAll().forEach((trigger) => trigger.enable());
+      }
+
+      return;
     }
 
     if (href.startsWith("mailto")) {
@@ -62,13 +81,21 @@ export default function AnimatedLink({
       )}
       {...props}
       onClick={handleClick}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleClick();
+        }
+      }}
       whileHover="enter"
       whileTap="enter"
       transition={{ duration: 0.2 }}
+      role="link"
+      tabIndex={0}
     >
       {children}
       <motion.span
-        className="absolute bottom-0 left-0 h-[2px] bg-current"
+        className="absolute bottom-0 left-0 h-0.5 bg-current"
         variants={underlineAnimations}
       />
     </motion.span>
