@@ -44,6 +44,8 @@ export default function ChatHeader() {
         .from(title.lines, {
           duration: 0.5,
           y: 150,
+          ease: "power2.out",
+          stagger: 0.2,
         })
         .from(
           subtitle.lines,
@@ -51,6 +53,7 @@ export default function ChatHeader() {
             duration: 0.5,
             y: 200,
             stagger: 0.2,
+            ease: "power2.out",
           },
           ">-0.35"
         );

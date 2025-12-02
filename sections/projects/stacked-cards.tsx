@@ -92,6 +92,7 @@ export default function StackedCards() {
             scale: isTabletOrMobile ? 0.6 : 0.4,
             duration: 0.05,
             y: isTabletOrMobile ? -200 : -215,
+            ease: "power2.inOut",
           },
           0
         )
@@ -100,6 +101,7 @@ export default function StackedCards() {
           {
             duration: 0.05,
             y: isTabletOrMobile ? -200 : -250,
+            ease: "power2.inOut",
           },
           0
         );

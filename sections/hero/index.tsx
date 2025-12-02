@@ -46,7 +46,7 @@ export default function Hero() {
         .to(split.words, {
           opacity: "1",
           duration: 0.75,
-          ease: "none",
+          ease: "power1.out",
           stagger: 1,
         });
     },
