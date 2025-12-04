@@ -7,6 +7,7 @@ import { ChatProvider } from "@/components/providers/chat-context";
 
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
   ? process.env.NEXT_PUBLIC_SITE_URL
@@ -56,6 +57,7 @@ export default function RootLayout({
 
           <Footer />
         </ThemeProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
