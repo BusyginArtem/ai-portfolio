@@ -27,3 +27,4 @@ jobs:
           lhci autorun
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+          DATABASE_URL: "postgresql://dummy_user:dummy_password@localhost:5432/dummy_db"
