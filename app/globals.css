@@ -88,21 +88,9 @@
 } */
 
 @layer base {
-  @font-face {
-    font-family: "Oswald";
-    src: url("/fonts/Oswald/Oswald-VariableFont_wght.ttf")
-      format("truetype-variations");
-    font-weight: 100 500 700 900;
-    font-stretch: 75% 125%;
-    font-display: swap;
-    ascent-override: 95%;
-    descent-override: 25%;
-    line-gap-override: 0%;
-  }
-
   :root {
     --radius: 0.5rem;
-    --font-oswald: "Oswald", sans-serif;
+    --font-oswald: "var(--font-oswald)", sans-serif;
     --font-metrics-oswald: 1.1;
   }
 
