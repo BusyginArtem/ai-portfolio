@@ -119,6 +119,8 @@ function ThemeToggle() {
   return (
     <Button
       onClick={toggleTheme}
+      role="button"
+      aria-label="Toggle theme button"
       variant="ghost"
       size="icon"
       className="text-muted-foreground [&_svg]:size-6.5 p-0 rounded-full relative overflow-visible cursor-theme"
