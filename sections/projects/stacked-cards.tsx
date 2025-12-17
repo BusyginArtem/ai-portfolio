@@ -54,8 +54,6 @@ const projects = [
 ] as const;
 
 const imageLoader: ImageLoader = (config) => {
-  console.log(config);
-
   const { src, quality } = config;
   const srcPaths = src.split("upload/");
   const urlStart = srcPaths[0];
