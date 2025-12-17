@@ -288,7 +288,10 @@ const Skills = () => {
   }, [initializePhysics]);
 
   return (
-    <section className="relative transition-colors h-[80vh] w-full min-h-fit">
+    <section
+      className="relative transition-colors h-[80vh] w-full min-h-fit"
+      aria-label="Skills and technologies section with interactive falling icons and logos representing various skills. Click the button to drop more icons."
+    >
       <button
         onClick={dropImage}
         className="text-center absolute z-8 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] text-base md:text-xl uppercase w-[120px] h-[120px] md:w-[180px] md:h-[180px] md:normal-case md:px-8 md:py-3 rounded-full cursor-none skills_button"
