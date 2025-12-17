@@ -16,7 +16,7 @@ const projects = [
     description: "Owned by @artembusyhin",
     href: "https://ai-image-enhancer-ashen.vercel.app/",
     image:
-      "https://res.cloudinary.com/dtrl8p5mc/image/upload/v1764245731/Screenshot_9_ykwzvq.png",
+      "https://res.cloudinary.com/dtrl8p5mc/image/upload/v1765973330/1_p30dg1.webp",
     dataId: "inpaint",
   },
   {
@@ -54,11 +54,13 @@ const projects = [
 ] as const;
 
 const imageLoader: ImageLoader = (config) => {
+  console.log(config);
+
   const { src, quality } = config;
   const srcPaths = src.split("upload/");
   const urlStart = srcPaths[0];
   const urlEnd = srcPaths[1];
-  const transformations = `h_600,q_${quality}/f_auto`;
+  const transformations = `h_400,q_${quality}/f_webp`;
 
   return `${urlStart}upload/${transformations}/${urlEnd}`;
 };
@@ -152,9 +154,10 @@ export default function StackedCards() {
             data-card={project.dataId}
             className="group projects-card transform-3d mx-auto p-4 md:p-6 rounded-3xl max-w-[632px] md:max-w-[648px] flex flex-col items-center justify-between gap-6 absolute right-0 left-0"
           >
-            <div className="w-full xl:w-[600px] md:h-full relative aspect-5/3 overflow-hidden rounded-3xl">
+            <div className="w-full xl:max-w-[600px] md:h-full relative aspect-5/3 overflow-hidden rounded-3xl">
               <Image
                 fill
+                sizes="(max-width: 640px) 100vw, 600px"
                 quality={75}
                 loader={imageLoader}
                 loading="lazy"

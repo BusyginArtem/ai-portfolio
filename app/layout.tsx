@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 
 import "./globals.css";
 
@@ -7,7 +8,6 @@ import { ChatProvider } from "@/components/providers/chat-context";
 
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
   ? process.env.NEXT_PUBLIC_SITE_URL
@@ -24,10 +24,9 @@ export const metadata: Metadata = {
       "Artem Busyhin is a front-end Developer with 7 years of experience.",
     // The URL should be the path *relative to the public folder*
     images: ["/opengraph-image.png"],
-    // url: "https://ai-portfolio-two-sigma.vercel.app/", // Replace with your actual deployed URL
+    url: "https://ai-portfolio-two-sigma.vercel.app/", // Replace with your actual deployed URL
     siteName: "Artem Busyhin | Personal Portfolio",
   },
-  // You might also want to add Twitter Card metadata
   twitter: {
     card: "summary_large_image",
     title: "Artem Busyhin | Front-end Developer",
@@ -37,13 +36,24 @@ export const metadata: Metadata = {
   },
 };
 
+const oswaldFont = localFont({
+  src: "../public/fonts/Oswald/Oswald-VariableFont_wght.ttf",
+  variable: "--font-oswald",
+  weight: "100 500 700 900",
+  display: "swap",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="cursor-rounded" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`cursor-rounded ${oswaldFont.variable}`}
+      suppressHydrationWarning
+    >
       <body>
         <ThemeProvider
           attribute="data-theme"
@@ -57,7 +67,6 @@ export default function RootLayout({
 
           <Footer />
         </ThemeProvider>
-        <SpeedInsights />
       </body>
     </html>
   );
