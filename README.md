@@ -6,7 +6,7 @@ In this project, you will build a chatbot that will only respond with informatio
 
 This project will use the following stack:
 
-- [Next.js](https://nextjs.org) 14 (App Router)
+- [Next.js](https://nextjs.org) 16 (App Router)
 - [Vercel AI SDK](https://sdk.vercel.ai/docs)
 - [OpenAI](https://openai.com)
 - [Drizzle ORM](https://orm.drizzle.team)
