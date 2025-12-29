@@ -20,6 +20,8 @@ module.exports = {
     },
     upload: {
       target: "temporary-public-storage",
+      githubToken:
+        process.env.LHCI_GITHUB_TOKEN || process.env.LHCI_GITHUB_APP_TOKEN,
     },
   },
 };
