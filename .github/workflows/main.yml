@@ -12,24 +12,33 @@ on:
   pull_request:
     branches:
       - main
+
+permissions:
+  contents: read
+  statuses: write
+
 jobs:
   lhci:
     name: Lighthouse
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: use Node.js 22.x
+      - name: Use Node.js 22
         uses: actions/setup-node@v6
         with:
           node-version: "22"
+          cache: "npm"
 
-      - name: npm install, build
+      - name: Install and Build
         run: |
           npm install
           npm run build
 
-      - name: run Lighthouse CI
+      - name: Run Lighthouse CI
         run: |
           npm install -g @lhci/cli@0.15.x
           lhci autorun
