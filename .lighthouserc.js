@@ -5,9 +5,7 @@ module.exports = {
       startServerCommand: "npm run start",
       url: ["http://localhost:3000"],
       settings: {
-        // This forces Lighthouse to use "Desktop" settings
         preset: "desktop",
-        // Or manually disable throttling if the CI is too slow
         throttlingMethod: "provided",
       },
     },
@@ -20,8 +18,8 @@ module.exports = {
     },
     upload: {
       target: "temporary-public-storage",
-      githubToken:
-        process.env.LHCI_GITHUB_TOKEN || process.env.LHCI_GITHUB_APP_TOKEN,
+      githubAppToken: process.env.LHCI_GITHUB_APP_TOKEN,
+      githubToken: process.env.LHCI_GITHUB_TOKEN,
     },
   },
 };
