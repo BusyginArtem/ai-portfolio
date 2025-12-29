@@ -1,7 +1,7 @@
 name: CI
 
 env:
-  LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+  LHCI_GITHUB_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
   DATABASE_URL: "postgresql://dummy_user:dummy_password@localhost:5432/dummy_db"
 
 on:
@@ -17,14 +17,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+
       - name: use Node.js 22.x
         uses: actions/setup-node@v6
         with:
           node-version: "22"
+
       - name: npm install, build
         run: |
           npm install
           npm run build
+
       - name: run Lighthouse CI
         run: |
           npm install -g @lhci/cli@0.15.x
