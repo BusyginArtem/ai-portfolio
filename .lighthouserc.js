@@ -4,6 +4,12 @@ module.exports = {
       numberOfRuns: 3,
       startServerCommand: "npm run start",
       url: ["http://localhost:3000"],
+      settings: {
+        // This forces Lighthouse to use "Desktop" settings
+        preset: "desktop",
+        // Or manually disable throttling if the CI is too slow
+        throttlingMethod: "provided",
+      },
     },
     assert: {
       assertions: {
