@@ -62,6 +62,8 @@ export default function Hero() {
       tabIndex={0}
       ref={container}
       className="min-h-dvh md:max-w-[80%] col-center px-4 md:px-8 transition-colors"
+      aria-label="I'm Artem Busyhin, a front-end developer passionate about building
+        sites & apps with great user experiences. My focus is React and Next.js"
     >
       <h1 className="text-4xl sm:text-6xl lg:text-8xl leading-none text-balance">
         I&apos;m Artem Busyhin, a front-end developer passionate about building
