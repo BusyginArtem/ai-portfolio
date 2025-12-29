@@ -89,7 +89,7 @@ export default function StackedCards() {
         .to(
           "#title",
           {
-            scale: isTabletOrMobile ? 0.6 : 0.4,
+            scale: isTabletOrMobile ? 0.6 : 0.5,
             duration: 0.05,
             y: isTabletOrMobile ? -200 : -215,
             ease: "power2.inOut",
@@ -150,7 +150,7 @@ export default function StackedCards() {
             key={project.title}
             id="card-content"
             data-card={project.dataId}
-            className="group projects-card transform-3d mx-auto p-4 md:p-6 rounded-3xl max-w-[632px] md:max-w-[648px] flex flex-col items-center justify-between gap-6 absolute right-0 left-0"
+            className="group projects-card transform-3d mx-auto p-4 md:p-6 rounded-3xl max-w-[532px] 3xl:max-w-[648px] flex flex-col items-center justify-between gap-6 absolute right-0 left-0"
           >
             <div className="w-full xl:max-w-[600px] md:h-full relative aspect-5/3 overflow-hidden rounded-3xl">
               <Image
