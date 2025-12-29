@@ -59,6 +59,7 @@ export default function Hero() {
 
   return (
     <section
+      tabIndex={0}
       ref={container}
       className="min-h-dvh md:max-w-[80%] col-center px-4 md:px-8 transition-colors"
       aria-label="I'm Artem Busyhin, a front-end developer passionate about building
