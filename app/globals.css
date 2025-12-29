@@ -54,6 +54,8 @@
 
   --color-pink: hsl(350 100% 88%);
   --color-gold: hsl(45 75% 52%);
+
+  --breakpoint-3xl: 120rem;
 }
 
 /*
