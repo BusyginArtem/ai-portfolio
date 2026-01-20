@@ -21,7 +21,7 @@ const nextConfig = {
       urls.push({
         source: "/upload",
         destination: "/",
-        permanent: false,
+        permanent: true,
       });
     }
 
