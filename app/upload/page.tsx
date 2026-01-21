@@ -1,56 +1,26 @@
-// src/app/upload/page.tsx
 "use client";
 
-import { useState, useTransition } from "react";
+import { useActionState } from "react";
+import { Loader2 } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Loader2 } from "lucide-react";
-import { uploadDocument } from "@/lib/actions/process-file";
+import { Button } from "@/components/ui/button";
+import { handleFileUpload } from "@/lib/actions/upload-file";
+import type { FileUploadInitialState } from "@/shared/types";
+import { cn } from "@/lib/utils";
 
-export default function PDFUpload() {
-  const [isPending, startTransition] = useTransition();
-  const [message, setMessage] = useState<{
-    type: "error" | "success";
-    text: string;
-  } | null>(null);
+const initialState: FileUploadInitialState = { message: "", type: "idle" };
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+export default function FileUpload() {
+  const [state, formAction, pending] = useActionState<
+    FileUploadInitialState,
+    FormData
+  >(handleFileUpload, initialState);
 
-    const input = e.target;
-    setMessage(null);
-
-    startTransition(async () => {
-      try {
-        const formData = new FormData();
-        formData.append("document", file);
-
-        const result = await uploadDocument(formData);
-
-        if (result.success) {
-          setMessage({
-            type: "success",
-            text: result.message || "Document processed successfully",
-          });
-          input.value = "";
-        } else {
-          setMessage({
-            type: "error",
-            text: result.message || "Failed to process document",
-          });
-        }
-      } catch (err) {
-        setMessage({
-          type: "error",
-          text: "An error occurred while processing the document",
-        });
-      }
-    });
-  };
+  const hasError = state.type === "error";
 
   return (
     <div className="min-h-dvh bg-gray-50 py-12 px-4">
@@ -60,20 +30,21 @@ export default function PDFUpload() {
         </h1>
         <Card className="mb-6">
           <CardContent className="pt-6">
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="pdf-upload">Upload Document</Label>
-                <Input
-                  id="pdf-upload"
-                  type="file"
-                  accept=".pdf, .doc, .docx"
-                  onChange={handleFileUpload}
-                  disabled={isPending}
-                  className="mt-2"
-                />
-              </div>
+            <form className="space-y-4" action={formAction}>
+              <Label htmlFor="pdf-upload">Upload Document</Label>
+              <Input
+                id="pdf-upload"
+                name="file"
+                type="file"
+                accept=".pdf, .doc, .docx"
+                disabled={pending}
+                className={cn("cursor-pointer mt-2", {
+                  "opacity-50 cursor-not-allowed": pending,
+                  "border-destructive/50 dark:border-destructive": hasError,
+                })}
+              />
 
-              {isPending && (
+              {pending && (
                 <div className="flex items-center gap-2">
                   <Loader2 className="h-5 w-5 animate-spin" />
                   <span className="text-muted-foreground">
@@ -82,17 +53,17 @@ export default function PDFUpload() {
                 </div>
               )}
 
-              {message && (
-                <Alert
-                  variant={message.type === "error" ? "destructive" : "default"}
-                >
-                  <AlertTitle>
-                    {message.type === "error" ? "Error!" : "Success!"}
-                  </AlertTitle>
-                  <AlertDescription>{message.text}</AlertDescription>
+              {state.message && (
+                <Alert variant={hasError ? "destructive" : "success"}>
+                  <AlertTitle>{hasError ? "Error!" : "Success!"}</AlertTitle>
+                  <AlertDescription>{state.message}</AlertDescription>
                 </Alert>
               )}
-            </div>
+
+              <Button type="submit" disabled={pending}>
+                Upload
+              </Button>
+            </form>
           </CardContent>
         </Card>
       </div>

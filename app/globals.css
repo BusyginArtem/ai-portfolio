@@ -47,9 +47,11 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
-  --font-sans: var(--font-open-sans), ui-sans-serif, system-ui, sans-serif,
+  --font-sans:
+    var(--font-open-sans), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-oswald: var(--font-oswald), ui-sans-serif, system-ui, sans-serif,
+  --font-oswald:
+    var(--font-oswald), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
   --color-pink: hsl(350 100% 88%);
@@ -148,7 +150,7 @@
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
     --border: 0 0% 14.9%;
@@ -178,8 +180,8 @@
     --accent: 239 90% 94%;
     --accent-foreground: 239 90% 74%;
 
-    --destructive: 100 52.8% 75.6%;
-    --destructive-foreground: 239 90% 74%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
 
     --border: 239 90% 94%;
     --input: 239 90% 94%;
@@ -211,37 +213,43 @@
 
 @layer components {
   [data-theme="light"].cursor-rounded {
-    cursor: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 32 32'%3e%3ccircle cx='9' cy='9' r='9' fill='hsl(0 0% 3.9%)'/%3e%3c/svg%3e")
+    cursor:
+      url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 32 32'%3e%3ccircle cx='9' cy='9' r='9' fill='hsl(0 0% 3.9%)'/%3e%3c/svg%3e")
         6 8,
       pointer;
   }
 
   [data-theme="dark"].cursor-rounded {
-    cursor: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 32 32'%3e%3ccircle cx='9' cy='9' r='9' fill='hsl(0 0% 92%)'/%3e%3c/svg%3e")
+    cursor:
+      url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 32 32'%3e%3ccircle cx='9' cy='9' r='9' fill='hsl(0 0% 92%)'/%3e%3c/svg%3e")
         6 8,
       pointer;
   }
 
   [data-theme="coloured"].cursor-rounded {
-    cursor: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 32 32'%3e%3ccircle cx='9' cy='9' r='9' fill='hsl(239 90% 74%)'/%3e%3c/svg%3e")
+    cursor:
+      url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 32 32'%3e%3ccircle cx='9' cy='9' r='9' fill='hsl(239 90% 74%)'/%3e%3c/svg%3e")
         6 8,
       pointer;
   }
 
   [data-theme="light"] .cursor-theme {
-    cursor: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 30 30'%3e%3ccircle cx='15' cy='15' r='14' fill='none' stroke='hsl(0 0% 14.9%)' stroke-opacity='.2' stroke-width='1'/%3e%3c/svg%3e")
+    cursor:
+      url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 30 30'%3e%3ccircle cx='15' cy='15' r='14' fill='none' stroke='hsl(0 0% 14.9%)' stroke-opacity='.2' stroke-width='1'/%3e%3c/svg%3e")
         30 30,
       pointer;
   }
 
   [data-theme="dark"] .cursor-theme {
-    cursor: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 30 30'%3e%3ccircle cx='15' cy='15' r='14' fill='none' stroke='hsl(0 0% 69.8%)' stroke-opacity='.6' stroke-width='1'/%3e%3c/svg%3e")
+    cursor:
+      url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 30 30'%3e%3ccircle cx='15' cy='15' r='14' fill='none' stroke='hsl(0 0% 69.8%)' stroke-opacity='.6' stroke-width='1'/%3e%3c/svg%3e")
         30 30,
       pointer;
   }
 
   [data-theme="coloured"] .cursor-theme {
-    cursor: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 30 30'%3e%3ccircle cx='15' cy='15' r='14' fill='none' stroke='hsl(139 90% 74%)' stroke-opacity='.1' stroke-width='1'/%3e%3c/svg%3e")
+    cursor:
+      url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 30 30'%3e%3ccircle cx='15' cy='15' r='14' fill='none' stroke='hsl(139 90% 74%)' stroke-opacity='.1' stroke-width='1'/%3e%3c/svg%3e")
         30 30,
       pointer;
   }
