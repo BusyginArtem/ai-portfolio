@@ -1,7 +1,7 @@
 // src/app/upload/page.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -11,7 +11,7 @@ import { Loader2 } from "lucide-react";
 import { uploadDocument } from "@/lib/actions/process-file";
 
 export default function PDFUpload() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const [message, setMessage] = useState<{
     type: "error" | "success";
     text: string;
@@ -21,35 +21,35 @@ export default function PDFUpload() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    setIsLoading(true);
+    const input = e.target;
     setMessage(null);
 
-    try {
-      const formData = new FormData();
-      formData.append("document", file);
+    startTransition(async () => {
+      try {
+        const formData = new FormData();
+        formData.append("document", file);
 
-      const result = await uploadDocument(formData);
+        const result = await uploadDocument(formData);
 
-      if (result.success) {
-        setMessage({
-          type: "success",
-          text: result.message || "Document processed successfully",
-        });
-        e.target.value = "";
-      } else {
+        if (result.success) {
+          setMessage({
+            type: "success",
+            text: result.message || "Document processed successfully",
+          });
+          input.value = "";
+        } else {
+          setMessage({
+            type: "error",
+            text: result.message || "Failed to process document",
+          });
+        }
+      } catch (err) {
         setMessage({
           type: "error",
-          text: result.message || "Failed to process document",
+          text: "An error occurred while processing the document",
         });
       }
-    } catch (err) {
-      setMessage({
-        type: "error",
-        text: "An error occurred while processing the document",
-      });
-    } finally {
-      setIsLoading(false);
-    }
+    });
   };
 
   return (
@@ -68,12 +68,12 @@ export default function PDFUpload() {
                   type="file"
                   accept=".pdf, .doc, .docx"
                   onChange={handleFileUpload}
-                  disabled={isLoading}
+                  disabled={isPending}
                   className="mt-2"
                 />
               </div>
 
-              {isLoading && (
+              {isPending && (
                 <div className="flex items-center gap-2">
                   <Loader2 className="h-5 w-5 animate-spin" />
                   <span className="text-muted-foreground">
