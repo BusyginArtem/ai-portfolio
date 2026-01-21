@@ -71,7 +71,7 @@ async function extractTextFromFile(file: File): Promise<string> {
       throw new Error(
         `Failed to extract text from DOCX file: ${
           error instanceof Error ? error.message : "Unknown error"
-        }`
+        }`,
       );
     }
   }
@@ -95,7 +95,7 @@ async function extractTextFromFile(file: File): Promise<string> {
       throw new Error(
         `Failed to extract text from DOC file: ${
           error instanceof Error ? error.message : "Unknown error"
-        }`
+        }`,
       );
     }
   }
@@ -103,21 +103,12 @@ async function extractTextFromFile(file: File): Promise<string> {
   throw new Error(
     `Unsupported file type: ${
       fileType || "unknown"
-    }. Supported formats: PDF, DOC, DOCX`
+    }. Supported formats: PDF, DOC, DOCX`,
   );
 }
 
-export const uploadDocument = async (formData: FormData) => {
+export const uploadDocument = async (file: File) => {
   try {
-    const file = formData.get("document") as File;
-
-    if (!file) {
-      return {
-        success: false,
-        message: "No file provided",
-      };
-    }
-
     const text = await extractTextFromFile(file);
 
     if (!text || text.trim().length === 0) {
@@ -139,11 +130,13 @@ export const uploadDocument = async (formData: FormData) => {
       .returning();
 
     const embeddings = await generateEmbeddings(content);
+    console.log("embeddings ", embeddings);
+
     await db.insert(embeddingsTable).values(
       embeddings.map((embedding) => ({
         resourceId: resource.id,
         ...embedding,
-      }))
+      })),
     );
 
     return {
