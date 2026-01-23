@@ -26,6 +26,13 @@ export const handleFileUpload = async (
   _initialState: FileUploadInitialState,
   formData: FormData,
 ): Promise<FileUploadInitialState> => {
+  if (process.env.NODE_ENV !== "development") {
+    return {
+      message: "File upload is only available in development mode",
+      type: "error",
+    };
+  }
+
   const file = formData.get("file");
 
   if (!file) {
