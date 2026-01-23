@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
-import "./globals.css";
+import "../globals.css";
 
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ChatProvider } from "@/components/providers/chat-context";
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 };
 
 const oswaldFont = localFont({
-  src: "../public/fonts/Oswald/Oswald-VariableFont_wght.ttf",
+  src: "../../public/fonts/Oswald/Oswald-VariableFont_wght.ttf",
   variable: "--font-oswald",
   weight: "100 500 700 900",
   display: "swap",
