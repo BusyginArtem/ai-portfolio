@@ -109,6 +109,13 @@ async function extractTextFromFile(file: File): Promise<string> {
 
 export const uploadDocument = async (file: File) => {
   try {
+    if (process.env.NODE_ENV !== "development") {
+      return {
+        message: "File upload is only available in development mode",
+        success: false,
+      };
+    }
+
     const text = await extractTextFromFile(file);
 
     if (!text || text.trim().length === 0) {
@@ -130,7 +137,6 @@ export const uploadDocument = async (file: File) => {
       .returning();
 
     const embeddings = await generateEmbeddings(content);
-    console.log("embeddings ", embeddings);
 
     await db.insert(embeddingsTable).values(
       embeddings.map((embedding) => ({

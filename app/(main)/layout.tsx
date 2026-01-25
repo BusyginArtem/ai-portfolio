@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 
-import "../globals.css";
-
-import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ChatProvider } from "@/components/providers/chat-context";
 
 import Header from "@/components/header";
@@ -36,38 +32,18 @@ export const metadata: Metadata = {
   },
 };
 
-const oswaldFont = localFont({
-  src: "../../public/fonts/Oswald/Oswald-VariableFont_wght.ttf",
-  variable: "--font-oswald",
-  weight: "100 500 700 900",
-  display: "swap",
-});
-
-export default function RootLayout({
+export default function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`cursor-rounded ${oswaldFont.variable}`}
-      suppressHydrationWarning
-    >
-      <body>
-        <ThemeProvider
-          attribute="data-theme"
-          defaultTheme="light"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
-          <Header />
+    <>
+      <Header />
 
-          <ChatProvider>{children}</ChatProvider>
+      <ChatProvider>{children}</ChatProvider>
 
-          <Footer />
-        </ThemeProvider>
-      </body>
-    </html>
+      <Footer />
+    </>
   );
 }
