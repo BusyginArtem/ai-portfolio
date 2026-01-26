@@ -9,7 +9,9 @@ import { useGSAP } from "@gsap/react";
 
 import { Button } from "@/components/ui/button";
 
-export default function NotFound() {
+gsap.registerPlugin(useGSAP);
+
+export default function NotFoundPage() {
   const router = useRouter();
   const numberRef = useRef<HTMLHeadingElement>(null);
   const glitchRef = useRef<HTMLDivElement>(null);
