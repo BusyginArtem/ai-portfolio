@@ -12,8 +12,6 @@ export function middleware(request: NextRequest) {
     // In development, add security headers
     const response = NextResponse.next();
     response.headers.set("X-Content-Type-Options", "nosniff");
-    response.headers.set("X-Frame-Options", "DENY");
-    response.headers.set("X-XSS-Protection", "1; mode=block");
 
     return response;
   }
@@ -23,9 +21,11 @@ export function middleware(request: NextRequest) {
     const response = NextResponse.next();
 
     response.headers.set("X-Content-Type-Options", "nosniff");
-    response.headers.set("X-Frame-Options", "DENY");
-    response.headers.set("X-XSS-Protection", "1; mode=block");
     response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+    response.headers.set(
+      "Content-Security-Policy",
+      "default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; frame-ancestors 'none'; object-src 'none';",
+    );
 
     return response;
   }

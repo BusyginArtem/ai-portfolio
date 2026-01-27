@@ -4,6 +4,7 @@ import { ChatProvider } from "@/components/providers/chat-context";
 
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+// import { CursorFollower } from "@/components/cursor-follower";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
   ? process.env.NEXT_PUBLIC_SITE_URL
@@ -39,6 +40,8 @@ export default function MainLayout({
 }>) {
   return (
     <>
+      {/* <CursorFollower /> */}
+
       <Header />
 
       <ChatProvider>{children}</ChatProvider>

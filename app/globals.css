@@ -199,11 +199,11 @@
 
 @layer utilities {
   .flex-center {
-    @apply flex justify-center items-center;
+    @apply flex items-center justify-center;
   }
 
   .col-center {
-    @apply flex flex-col justify-center items-center;
+    @apply flex flex-col items-center justify-center;
   }
 
   .general-title {
@@ -270,15 +270,15 @@
     @apply shadow-xl shadow-foreground/4;
 
     &[data-card] {
-      @apply bg-card border border-border/25;
+      @apply border bg-card border-border/25;
     }
   }
 
   [data-theme="dark"] .projects-card {
-    @apply shadow-lg shadow-foreground/2 border border-border/45;
+    @apply border shadow-lg shadow-foreground/2 border-border/45;
 
     &[data-card] {
-      @apply bg-card border border-border/45;
+      @apply border bg-card border-border/45;
 
       & img {
         @apply border border-border/25;
@@ -331,6 +331,6 @@
   }
 
   .header-link {
-    @apply uppercase tracking-wider text-base md:text-lg;
+    @apply text-base tracking-wider uppercase md:text-lg;
   }
 }
