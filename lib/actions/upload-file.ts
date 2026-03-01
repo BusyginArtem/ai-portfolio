@@ -12,6 +12,9 @@ const ACCEPTED_IMAGE_TYPES = [
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 ];
 
+const MAX_FILE_SIZE_MB = 10;
+const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
+
 const fileSchema = z.object({
   file: z
     .instanceof(File)
@@ -19,6 +22,10 @@ const fileSchema = z.object({
       (file) =>
         !file || file.type === "" || ACCEPTED_IMAGE_TYPES.includes(file.type),
       "Only .pdf, .doc and .docx formats are supported",
+    )
+    .refine(
+      (file) => !file || file.size <= MAX_FILE_SIZE_BYTES,
+      `File size must not exceed ${MAX_FILE_SIZE_MB}MB`,
     ),
 });
 
