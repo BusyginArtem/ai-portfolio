@@ -167,9 +167,9 @@ export default function StackedCards() {
 
             <div className="w-full">
               <a href={project.href} rel="noreferrer noopener" target="_blank">
-                <h1 className="text-[clamp(1.5rem,3vw,3rem)] font-medium text-center">
+                <h3 className="text-[clamp(1.5rem,3vw,3rem)] font-medium text-center">
                   {project.title}
-                </h1>
+                </h3>
               </a>
               <div className="flex wrap justify-center">
                 {project.description.split(" ").map((part) => (

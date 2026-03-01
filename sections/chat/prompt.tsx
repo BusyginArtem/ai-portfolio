@@ -11,12 +11,27 @@ import {
   PromptInputFooter,
   PromptInputTools,
 } from "@/components/ai-elements/prompt-input";
+import {
+  Suggestion,
+  Suggestions,
+} from "@/components/ai-elements/suggestion";
 import { useChatContext } from "@/components/providers/chat-context";
+
+const SUGGESTED_QUESTIONS = [
+  "What are your main skills?",
+  "Tell me about your experience",
+  "What projects have you worked on?",
+  "What technologies do you use?",
+  "What is your educational background?",
+];
 
 export default function Prompt() {
   const [input, setInput] = useState("");
 
-  const { sendMessage, status } = useChatContext();
+  const { sendMessage, status, messages } = useChatContext();
+
+  const showSuggestions = messages.length === 0;
+
   const handleSubmit = (message: PromptInputMessage) => {
     if (!message.text) {
       return;
@@ -27,8 +42,19 @@ export default function Prompt() {
     setInput("");
   };
 
+  const handleSuggestionClick = (suggestion: string) => {
+    sendMessage({ text: suggestion });
+  };
+
   return (
     <div className="mt-4 md:mt-6 animate-in slide-in-from-bottom-8 fade-in duration-700 delay-150">
+      {showSuggestions && (
+        <Suggestions className="mb-3">
+          {SUGGESTED_QUESTIONS.map((q) => (
+            <Suggestion key={q} suggestion={q} onClick={handleSuggestionClick} />
+          ))}
+        </Suggestions>
+      )}
       <PromptInput
         onSubmit={handleSubmit}
         className=" **:data-[slot=input-group]:ring-black/5!"
