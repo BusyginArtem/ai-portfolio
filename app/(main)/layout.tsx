@@ -12,9 +12,9 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
 function getYearsOfExperience(): number {
   const start = new Date("2018-07-01");
   const now = new Date();
-  const years = now.getFullYear() - start.getFullYear();
-  const months = now.getMonth() - start.getMonth();
-  return Math.floor((years * 12 + months) / 12);
+  return Math.floor(
+    (now.getTime() - start.getTime()) / (1000 * 60 * 60 * 24 * 365.25)
+  );
 }
 
 const yearsOfExperience = getYearsOfExperience();
